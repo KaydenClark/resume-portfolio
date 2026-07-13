@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Operations Systems Playbook — Kayden Clark</title>
+<meta name="description" content="A synthetic operations systems evidence kit: requirements, workflow controls, data dictionary, UAT, SOP, and safe reporting views.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230e1116'/%3E%3Ctext x='50' y='68' font-size='52' text-anchor='middle' fill='%234cc38a' font-family='system-ui' font-weight='700'%3EKC%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="../assets/style.css">
+<script src="../assets/main.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="../">Kayden<span> Clark</span></a>
+    <nav class="main" aria-label="Site">
+      <a href="../#systems">Systems</a>
+      <a href="../#where-i-fit">Where I Fit</a>
+      <a href="../assets/Kayden-Clark-Resume-2026.pdf">Resume</a>
+      <span class="theme-label" aria-label="Light color theme">LIGHT · v2</span>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <div class="cs-header">
+    <div class="wrap">
+      <p class="crumb"><a href="../#evidence-kit">← Operations Systems Playbook</a></p>
+      <h1>Operations Systems Playbook</h1>
+      <ul class="fact-strip">
+        <li class="hot">Synthetic evidence kit</li>
+        <li class="hot">Requirements through handoff</li>
+        <li>No client data</li>
+        <li>Reusable operating pattern</li>
+      </ul>
+    </div>
+  </div>
+
+  <article class="cs">
+    <div class="wrap">
+      <h2>What this demonstrates</h2>
+      <p>This is a safe, synthetic example of the work behind the case studies on this site. It shows the artifacts an operations systems builder creates so a workflow is not dependent on memory, a single spreadsheet author, or a chain of inbox messages.</p>
+      <p>The scenario is fictional: a monthly service-billing workflow needs a controlled path from submitted hours to approved invoice data. Names, dates, amounts, and records below are invented.</p>
+
+      <nav class="artifact-nav" aria-label="Playbook sections">
+        <a href="#workflow">Workflow</a>
+        <a href="#requirements">Requirements brief</a>
+        <a href="#data-dictionary">Data dictionary</a>
+        <a href="#uat">UAT checklist</a>
+        <a href="#sop">Production SOP</a>
+      </nav>
+
+      <h2 id="workflow">1. Workflow and control points</h2>
+      <p>The goal is not to remove human judgment. It is to make the required judgment, owner, and evidence visible before a billing record becomes final.</p>
+      <ol class="playbook-steps">
+        <li><strong>Intake.</strong> The operator loads an unchanged source export and records the reporting period, source date, and file owner.</li>
+        <li><strong>Validate.</strong> Required fields, duplicate rows, rate mappings, and period totals are checked before any calculations are used downstream.</li>
+        <li><strong>Reconcile.</strong> Approved adjustments are matched to source hours. An unresolved variance remains an exception, not a hidden formula result.</li>
+        <li><strong>Approve.</strong> The reviewer receives a draft detail, exception list, and explicit approval state. A final cannot be issued while a required approval is missing.</li>
+        <li><strong>Publish and hand off.</strong> Final data, an audit record, and the next-run checklist are stored together so another operator can repeat the cycle.</li>
+      </ol>
+
+      <h2 id="requirements">2. Requirements brief</h2>
+      <dl class="requirements">
+        <div><dt>Business problem</dt><dd>Monthly billing depends on multiple inputs, approvals, and adjustments that are easy to lose in manual handoffs.</dd></div>
+        <div><dt>Primary users</dt><dd>Operations analyst, billing reviewer, account owner, and accounting recipient.</dd></div>
+        <div><dt>Success condition</dt><dd>Every billed row has a source record, valid rate mapping, approval state, and an explainable exception path.</dd></div>
+        <div><dt>Non-goal</dt><dd>The system does not replace financial approval or permit a user to silently override an unresolved variance.</dd></div>
+        <div><dt>Acceptance criteria</dt><dd>Invalid rows fail visibly; period totals reconcile; approval is recorded; final output is reproducible by another trained operator.</dd></div>
+        <div><dt>Dependencies</dt><dd>Source export availability, approved rate table, adjustment log, reviewer availability, and accounting delivery deadline.</dd></div>
+      </dl>
+
+      <h2 id="data-dictionary">3. Synthetic data dictionary and reporting view</h2>
+      <p>Each field has one meaning, one owner, and a validation rule. These sample records are invented and do not represent a real client, employee, or transaction.</p>
+      <table>
+        <thead><tr><th>Field</th><th>Purpose</th><th>Owner</th><th>Validation</th></tr></thead>
+        <tbody>
+          <tr><td>period_id</td><td>Billing month being processed</td><td>Operator</td><td>Matches control-panel month</td></tr>
+          <tr><td>source_row_id</td><td>Stable reference to imported source row</td><td>Source system</td><td>Unique within period</td></tr>
+          <tr><td>approved_hours</td><td>Hours eligible for billing</td><td>Operations</td><td>Non-negative and reconciled</td></tr>
+          <tr><td>rate_code</td><td>Approved pricing lookup key</td><td>Billing owner</td><td>Must resolve in rate table</td></tr>
+          <tr><td>exception_state</td><td>Unresolved variance or missing approval</td><td>Reviewer</td><td>Must be clear before final</td></tr>
+          <tr><td>approval_state</td><td>Draft, approved, or returned</td><td>Reviewer</td><td>Final requires approved</td></tr>
+        </tbody>
+      </table>
+      <table>
+        <thead><tr><th>Sample record</th><th>Hours</th><th>Rate code</th><th>Exception</th><th>Approval</th></tr></thead>
+        <tbody>
+          <tr><td>SYN-APR-001</td><td>80.00</td><td>STANDARD</td><td><span class="status-pass">Clear</span></td><td>Approved</td></tr>
+          <tr><td>SYN-APR-002</td><td>42.50</td><td>PREMIUM</td><td><span class="status-pass">Clear</span></td><td>Approved</td></tr>
+          <tr><td>SYN-APR-003</td><td>12.00</td><td>UNMAPPED</td><td>Rate mapping required</td><td>Blocked</td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="uat">4. UAT checklist and exception matrix</h2>
+      <p>Testing checks the failure paths that are likely in normal use, not just a happy-path calculation.</p>
+      <table>
+        <thead><tr><th>Test</th><th>Expected result</th><th>Release gate</th></tr></thead>
+        <tbody>
+          <tr><td>Wrong-period export</td><td>Control period mismatch is visible before transformation.</td><td>Fail</td></tr>
+          <tr><td>Duplicate source row</td><td>Duplicate is flagged and excluded from final rollup pending review.</td><td>Fail</td></tr>
+          <tr><td>Missing rate mapping</td><td>Record remains UNMAPPED; no calculated final is produced.</td><td>Fail</td></tr>
+          <tr><td>Approved adjustment</td><td>Adjustment links to a source row and changes the reconciliation total visibly.</td><td>Pass when traceable</td></tr>
+          <tr><td>Reviewer return</td><td>Final-output control returns to draft and records the reason.</td><td>Fail until reapproved</td></tr>
+          <tr><td>Re-run with same data</td><td>Source totals and final totals reproduce without manual formula repair.</td><td>Pass</td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="sop">5. Production SOP</h2>
+      <ol>
+        <li>Confirm the period, source owner, and expected delivery date before loading data.</li>
+        <li>Save the unchanged source export and record its receipt in the run log.</li>
+        <li>Run required-field, duplicate, mapping, and period-total checks. Resolve or log every exception.</li>
+        <li>Prepare the draft detail and reviewer summary; do not create a final while approval state is incomplete.</li>
+        <li>After approval, issue the final output, archive the exception log, and document any change to the mapping or process.</li>
+        <li>At the next run, start from the checklist and prior change log rather than reconstructing the process from memory.</li>
+      </ol>
+
+      <h2>Why this matters</h2>
+      <div class="callout">A useful operations system makes the work easier to inspect, easier to hand off, and harder to get quietly wrong. The spreadsheet, workflow tool, or platform can change; the operating discipline should remain.</div>
+
+      <nav class="cs-nav" aria-label="Pages">
+        <a href="../#systems">← Systems I have shipped</a>
+        <a href="../#where-i-fit">Where I fit →</a>
+      </nav>
+    </div>
+  </article>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span><a href="mailto:kaydenclark725@gmail.com">Email</a> · <a href="../assets/Kayden-Clark-Resume-2026.pdf">Resume</a></span>
+  </div>
+</footer>
+</body>
+</html>

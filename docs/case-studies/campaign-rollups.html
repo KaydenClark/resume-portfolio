@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Turnkey Campaign Reporting System — Kayden Clark</title>
+<meta name="description" content="A production WBR reporting engine built solo in under 40 hours, in a platform I had never used. Paste the export, update the date, validate, ship.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230e1116'/%3E%3Ctext x='50' y='68' font-size='52' text-anchor='middle' fill='%234cc38a' font-family='system-ui' font-weight='700'%3EKC%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="../assets/style.css">
+<script src="../assets/main.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="../">Kayden<span> Clark</span></a>
+    <nav class="main" aria-label="Site">
+      <a href="../#systems" aria-current="page">Systems</a>
+      <a href="../#how-i-work">How I Work</a>
+      <a href="../assets/Kayden-Clark-Resume-2026.pdf">Resume</a>
+      <span class="theme-label" aria-label="Light color theme">LIGHT · v2</span>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<div class="cs-header">
+  <div class="wrap">
+    <p class="crumb"><a href="../#systems">← Systems I've Shipped</a></p>
+    <h1>Turnkey Campaign Reporting System</h1>
+    <ul class="fact-strip">
+      <li class="hot">Built solo in under 40 hours</li>
+      <li class="hot">Platform I had never used</li>
+      <li>2026</li>
+      <li>Sole builder</li>
+    </ul>
+  </div>
+</div>
+
+<article class="cs">
+  <div class="wrap">
+
+    <h2>The situation</h2>
+    <p>A client account needed weekly business review (WBR) reporting stood up from scratch. The source system was Zendesk — a platform I had zero prior experience with. No existing pipeline, no template, no second analyst.</p>
+    <p>And a hard adoption window: the reporting date had been committed to the client long before, the account manager was about to leave on vacation, and he was new — presenting numbers from a self-built workbook that hadn't survived review. I needed a working system <em>and</em> his buy-in before he left, or the client kept getting bad data.</p>
+
+    <h2>Constraints</h2>
+    <ul>
+      <li><strong>Foreign system.</strong> I had never built anything out of Zendesk before this project.</li>
+      <li><strong>One person.</strong> No data team, no engineer. Whatever I designed, I also had to run — and then hand off.</li>
+      <li><strong>Growing portfolio.</strong> This couldn't be a one-off; it had to be the pattern for every future campaign added to the book.</li>
+    </ul>
+
+    <h2>What I built</h2>
+    <p>A controlled reporting system, not a spreadsheet. The weekly operating loop for whoever runs it is three steps:</p>
+    <ol>
+      <li><strong>Paste the export.</strong> Raw Zendesk reports drop into dedicated Raw tabs, untouched.</li>
+      <li><strong>Update the date.</strong> One control-panel change cascades through every rollup, trend, and deck label via named ranges.</li>
+      <li><strong>Validate the data.</strong> A QA tab runs reconciliation, duplicate detection, and mapping coverage — unmapped values surface as loud <code>UNMAPPED</code> failure states instead of silently corrupting rollups.</li>
+    </ol>
+
+    <figure class="diagram">
+      <div class="diagram-frame">
+      <svg viewBox="0 0 760 300" role="img" aria-label="Architecture diagram: Control Panel and Mapping Tables govern a pipeline from Raw exports through Transform and Rollup layers to the Deck Copy, with QA Checks gating the output.">
+        <defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z"/></marker></defs>
+        <!-- governing layer -->
+        <g class="dg-node" data-title="Control Panel" data-info="Every variable in one place: campaign, week range, SLA goals. Prior-week and month ranges are formula-derived — the weekly refresh is one date change.">
+          <rect x="230" y="12" width="140" height="48"/>
+          <text x="300" y="32" text-anchor="middle">Control Panel</text>
+          <text x="300" y="48" text-anchor="middle" class="sub">one date drives all</text>
+        </g>
+        <g class="dg-node" data-title="Mapping Tables" data-info="Queues, agents, teams, channels, dispositions. Maintainers edit lookups, never formulas. Anything unrecognized fails loudly as UNMAPPED.">
+          <rect x="390" y="12" width="140" height="48"/>
+          <text x="460" y="32" text-anchor="middle">Mapping Tables</text>
+          <text x="460" y="48" text-anchor="middle" class="sub">lookups, not formulas</text>
+        </g>
+        <!-- pipeline -->
+        <g class="dg-node" data-title="Raw" data-info="Unedited exports: calls, tickets, chats, surveys. Quarantined on arrival — the audit trail. Nothing edits raw data, ever.">
+          <rect x="20" y="120" width="150" height="60"/>
+          <text x="95" y="145" text-anchor="middle">Raw Exports</text>
+          <text x="95" y="162" text-anchor="middle" class="sub">paste, don't touch</text>
+        </g>
+        <g class="dg-node" data-title="Transform" data-info="Cleaned data with helper columns — the formula engine. When a vendor changes its export format, the fix happens in this one layer.">
+          <rect x="210" y="120" width="150" height="60"/>
+          <text x="285" y="145" text-anchor="middle">Transform</text>
+          <text x="285" y="162" text-anchor="middle" class="sub">formula engine</text>
+        </g>
+        <g class="dg-node" data-title="Rollups" data-info="Weekly, by-channel, by-team/queue, and trend/YoY views. All date-driven from the Control Panel; nothing is hand-built per week.">
+          <rect x="400" y="120" width="150" height="60"/>
+          <text x="475" y="145" text-anchor="middle">Rollups</text>
+          <text x="475" y="162" text-anchor="middle" class="sub">weekly · channel · trend</text>
+        </g>
+        <g class="dg-node" data-title="Deck Copy" data-info="Clean, paste-ready output for the client-facing WBR deck. The presenter never touches formulas.">
+          <rect x="590" y="120" width="150" height="60"/>
+          <text x="665" y="145" text-anchor="middle">Deck Copy</text>
+          <text x="665" y="162" text-anchor="middle" class="sub">client-facing</text>
+        </g>
+        <!-- QA -->
+        <g class="dg-node" data-title="QA Checks" data-info="Reconciliation totals, duplicate detection, mapping coverage. Fail flags block the publish — validation is a workflow state, not a hope.">
+          <rect x="400" y="230" width="150" height="52"/>
+          <text x="475" y="252" text-anchor="middle">QA Checks</text>
+          <text x="475" y="268" text-anchor="middle" class="sub">gates the publish</text>
+        </g>
+        <!-- arrows -->
+        <path class="dg-arrow" d="M170,150 H206"/>
+        <path class="dg-arrow" d="M360,150 H396"/>
+        <path class="dg-arrow" d="M550,150 H586"/>
+        <path class="dg-arrow" d="M300,64 V116"/>
+        <path class="dg-arrow" d="M460,64 L300,116"/>
+        <path class="dg-arrow" d="M460,64 L465,116"/>
+        <path class="dg-arrow loop" d="M475,184 V226"/>
+        <path class="dg-arrow loop" d="M550,258 C600,258 640,220 660,188"/>
+      </svg>
+      </div>
+      <p class="diagram-caption">Raw → Transform → Rollup → Deck, governed by a Control Panel and Mapping Tables, gated by QA. Hover or tab through any layer for the design reasoning.</p>
+      <figcaption class="hint">Interactive: hover, tap, or keyboard-focus a node.</figcaption>
+    </figure>
+
+    <p>Shipped with a README tab, an archive/change log, and a step-by-step production SOP so a replacement user can run the full weekly cycle without me.</p>
+
+    <h2>Why it matters</h2>
+    <div class="callout">Most reporting breaks because logic lives in scattered formulas only the author understands. This treats reporting as a product: inputs quarantined, transformations inspectable, failure states loud, and the refresh cost of a new week is one date change. When the vendor changes its export format — which vendors do — the fix is one transform layer, not fifty slides.</div>
+
+    <h2>Impact</h2>
+    <ul class="impact-grid">
+      <li><span class="big">&lt; 40 hours</span><span class="label">from zero platform experience to production, one person, soup to nuts</span></li>
+      <li><span class="big">&lt; 30 min</span><span class="label">weekly refresh (about an hour for an account manager with full validation) — replacing several hours a day, all week, of manual prep</span></li>
+      <li><span class="big">7 of 9</span><span class="label">accounts run on the rollups engine today (remaining two in integration) — across Zendesk, Five9, Dialpad, and Salesforce sources</span></li>
+      <li><span class="big">9 of 9</span><span class="label">accounts run on the business report deck it feeds</span></li>
+    </ul>
+    <p>Handoff-ready by design: any analyst can rebuild a client WBR without touching formula logic.</p>
+
+    <h2>Artifacts</h2>
+    <ul>
+      <li><a href="operations-systems-playbook.html#requirements">Reporting-system requirements brief</a> — control variables, acceptance criteria, and operating constraints</li>
+      <li><a href="operations-systems-playbook.html#data-dictionary">Synthetic data dictionary and reporting views</a> — source fields, validation states, and safe sample values</li>
+      <li><a href="operations-systems-playbook.html#uat">UAT checklist and production SOP</a> — publish gates, exception handling, and handoff steps</li>
+    </ul>
+
+    <nav class="cs-nav" aria-label="Case studies">
+      <a href="../#systems">← All systems</a>
+      <a href="invoicing.html">Next: Hours, Invoicing &amp; Margin Engine →</a>
+    </nav>
+  </div>
+</article>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span><a href="mailto:kaydenclark725@gmail.com">Email</a> · <a href="https://github.com/KaydenClark">GitHub</a> · <a href="../assets/Kayden-Clark-Resume-2026.pdf">Resume</a></span>
+  </div>
+</footer>
+</body>
+</html>
