@@ -19,29 +19,34 @@
   <div class="wrap">
       <a class="brand" href="./">Kayden<span> Clark</span></a>
     <nav class="main" aria-label="Site">
-      <a href="#systems">Systems</a>
-      <a href="#where-i-fit">Where I Fit</a>
-      <a href="#how-i-work">How I Work</a>
-      <a href="#off-the-clock">Systems Lab</a>
+      <a href="#summary">Summary</a>
+      <a href="#core-skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#systems">Work Samples</a>
+      <a href="#projects">Projects</a>
       <a href="assets/Kayden-Clark-Resume-2026.pdf">Resume</a>
-      <span class="theme-label" aria-label="Light color theme">LIGHT · v2</span>
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">
+        <span class="theme-toggle-icon" aria-hidden="true"></span>
+        <span class="theme-toggle-text">Dark</span>
+      </button>
     </nav>
   </div>
 </header>
 
 <main id="main">
 
-  <div class="hero">
+  <div class="hero" id="summary">
     <div class="wrap">
       <div class="identity-card">
         <div class="identity-portrait">
           <img src="assets/headshot.jpg" alt="Kayden Clark">
         </div>
         <div class="identity-copy">
-          <p class="identity-label">Operations Systems Builder — SLC, UT</p>
+          <p class="identity-label">Senior Business Analyst · Salt Lake City, UT</p>
           <h1>Kayden Clark</h1>
           <div class="rainbow-rule" aria-hidden="true"></div>
-          <p class="tagline">I build the reporting, billing, staffing, and workflow-control systems operations teams run on — <strong>built in unfamiliar platforms, documented so they run without me.</strong> Senior business analyst with 5+ years of end-to-end operations systems ownership.</p>
+          <p class="role-title">Operations Reporting &amp; Billing Process Owner</p>
+          <p class="tagline">Business and operations analyst with 5+ years owning reporting, forecasting, billing, and cost-allocation systems across a multi-client BPO portfolio. I design the mechanisms leadership runs on: WBR reporting products, Erlang-based staffing models, leadership cost-allocation models, and end-to-end client billing workflows with external approval gates.</p>
           <div class="hero-links">
             <a class="btn primary" href="assets/Kayden-Clark-Resume-2026.pdf" download>
               <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><path d="m7 10 5 5 5-5"></path><path d="M12 15V3"></path></svg>
@@ -51,17 +56,82 @@
             <a class="btn" href="https://linkedin.com/in/kaydenclark">LinkedIn</a>
             <a class="btn" href="mailto:kaydenclark725@gmail.com">Email</a>
           </div>
-          <p class="meta-line">Salt Lake City, UT · reporting · billing · cost-allocation across a 9-account portfolio</p>
+          <p class="meta-line">Reporting · forecasting · billing · cost allocation · documented, repeatable SOPs</p>
+        </div>
+        <div class="diamond-cluster" aria-hidden="true">
+          <span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span>
         </div>
       </div>
     </div>
   </div>
 
+  <section id="core-skills">
+    <div class="wrap">
+      <p class="section-kicker">// 01 — Core skills</p>
+      <h2>The systems, tools, and controls behind the work</h2>
+      <div class="skill-groups">
+        <article>
+          <h3>Operations systems</h3>
+          <p>WBR reporting · WFM and Erlang staffing models · billing and invoicing operations · gross-margin and cost-allocation modeling · SOP and process design</p>
+        </article>
+        <article>
+          <h3>Data and platforms</h3>
+          <p>Advanced Excel · XLOOKUP · SUMIFS · named ranges · mapping tables · macros · Five9 · Dialpad · Salesforce · Power BI exports · Paycom reconciliation</p>
+        </article>
+        <article>
+          <h3>Technical practice</h3>
+          <p>AI-agent harness design · evaluations · prompt and context engineering · Python · JavaScript · Git · Node.js · React</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="wrap">
+      <p class="section-kicker">// 02 — Professional experience</p>
+      <h2>Operations reporting and billing ownership</h2>
+      <div class="experience-list">
+        <article class="experience-card">
+          <div class="role-heading">
+            <div>
+              <h3>Senior Business Analyst</h3>
+              <p>Operations Reporting &amp; Billing · Private BPO Portfolio</p>
+            </div>
+            <p class="role-date">Nov 2020 — Present</p>
+          </div>
+          <p class="role-summary">Progressed from customer service to the analyst who owns reporting, billing, and cost-allocation mechanisms across 9+ concurrent accounts in education, healthcare, telecom, and retail.</p>
+          <ul class="resume-bullets">
+            <li>Own the monthly billing lifecycle end to end for a multi-million-dollar portfolio, from draft details and approval gates through final invoices and purchase-order accuracy.</li>
+            <li>Serve as the invoice validation gate for leadership by reconciling vendor and contractor invoices against source-of-truth hours and signaling approval the same day.</li>
+            <li>Built the leadership cost-allocation model used monthly to rebalance headcount allocation and gross-profit margin across all accounts.</li>
+            <li>Design standardized WBR reporting products and rebuild data pipelines when vendor platforms change their reporting structures.</li>
+            <li>Developed Erlang-based staffing planners and authored the reporting architecture, QA checks, and SOPs that make weekly production repeatable.</li>
+            <li>Maintained 90–100% bonus eligibility for 12+ consecutive months through accurate, on-time reporting and billing.</li>
+          </ul>
+        </article>
+        <article class="experience-card compact">
+          <div class="role-heading">
+            <div>
+              <h3>Chargebacks &amp; Disputes Analyst</h3>
+              <p>Financial Technology</p>
+            </div>
+            <p class="role-date">Jun 2018 — Sep 2019</p>
+          </div>
+          <ul class="resume-bullets">
+            <li>Investigated and resolved financial disputes in line with internal and regulatory standards.</li>
+            <li>Helped restructure dispute-processing workflows to improve throughput and data-tracking accuracy.</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
   <section id="systems">
     <div class="wrap">
-      <p class="section-kicker">// 01 — Systems I've shipped</p>
-      <h2>Three production mechanisms</h2>
-      <p class="section-sub">Each built to a standard: quarantined inputs, loud failure states, one-variable refresh, and a handoff document. Client names withheld; architectures and numbers real.</p>
+      <p class="section-kicker">// 03 — Selected work samples</p>
+      <h2>Case studies behind the CV</h2>
+      <p class="section-sub">Three production mechanisms showing the architecture and operating controls behind the resume. Client names are withheld; examples remain anonymized.</p>
       <div class="cards">
         <article class="card">
           <div class="card-index"><span>01 / 03</span><i aria-hidden="true"></i></div>
@@ -100,78 +170,34 @@
     </div>
   </section>
 
-  <section id="where-i-fit">
+  <section id="achievements">
     <div class="wrap">
-      <p class="section-kicker">// 02 — Where I fit</p>
-      <h2>Turning messy workflows into adopted mechanisms</h2>
-      <p class="section-sub">Operations systems work where the job is to make a real-world process reliable, documented, and owned by the team.</p>
-      <div class="role-grid">
-        <article class="fit-card">
-          <h3>Operations / Business Systems</h3>
-          <p>Translate operational needs into controlled workflows, data flows, validation rules, documentation, and reporting that teams can use without the original builder.</p>
-        </article>
-        <article class="fit-card">
-          <h3>Billing, Revenue, and Finance Systems</h3>
-          <p>Own the path from source hours through reconciliation, approval, invoicing, margin visibility, and audit-ready handoff.</p>
-        </article>
-        <article class="fit-card">
-          <h3>Implementation and Process Improvement</h3>
-          <p>Map the workflow, make dependencies visible, build the operating playbook, guide adoption, and keep improving the system after launch.</p>
-        </article>
-        <article class="fit-card">
-          <h3>Systems Program Delivery</h3>
-          <p>Coordinate cross-functional inputs, surface risks early, define ready-to-run checkpoints, and turn a recurring process into a shared standard.</p>
-        </article>
-        <article class="fit-card">
-          <h3>AI-Assisted Operations</h3>
-          <p>Use agents, retrieval, and evaluation workflows as tools for faster system work while keeping human review and validation gates in the operating process.</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section id="how-i-work">
-    <div class="wrap">
-      <p class="section-kicker">// 03 — How I work</p>
-      <h2>Four operating principles</h2>
-      <ul class="principles">
-        <li><strong>Foreign systems are the job.</strong> Zendesk, Five9, Dialpad, Salesforce, Paycom — learn the export, own the pipeline. I'd never opened Zendesk before shipping a production reporting system from it in under 40 hours.</li>
-        <li><strong>Design for misuse first.</strong> Wrong exports, skipped steps, and misleading charts are expected failure modes. Unmapped values fail loudly, QA checks gate publication, and validation is a workflow state — not a hope.</li>
-        <li><strong>Handoff is part of the system.</strong> Everything ships with a README, a production SOP, and a change log. If it needs me to run it, it is not finished.</li>
-        <li><strong>AI is a tool, not the pitch.</strong> I use agent workflows, control-doc harnesses, and eval frameworks to work faster, then keep human review between generated output and operational decisions.</li>
+      <p class="section-kicker">// 04 — Key achievements</p>
+      <h2>Repeatable systems, not one-off heroics</h2>
+      <ul class="achievement-list">
+        <li><strong>One-variable WBR refresh.</strong> Converted one-off weekly reports into template-driven systems where a single date change refreshes rollups and deck labels.</li>
+        <li><strong>Standing billing SOP.</strong> Clarified a recurring client billing dispute by documenting the draft-to-final approval workflow adopted by finance operations and the client.</li>
       </ul>
+      <a class="btn" href="case-studies/operations-systems-playbook.html">Open the operations playbook</a>
     </div>
   </section>
 
-  <section id="evidence-kit">
+  <section id="projects">
     <div class="wrap">
-      <p class="section-kicker">Evidence kit</p>
-      <h2>Operations Systems Playbook</h2>
-      <p class="section-sub">A synthetic evidence kit showing how I take an operational change from intake through validation, approval, exception handling, reporting, training, and handoff.</p>
-      <a class="btn primary" href="case-studies/operations-systems-playbook.html">Open the playbook</a>
-    </div>
-  </section>
-
-  <section id="off-the-clock">
-    <div class="wrap">
-      <p class="section-kicker">// 04 — Systems lab</p>
-      <h2>Off the clock</h2>
-      <p class="section-sub">The same systems thinking, applied to personal AI memory, agent evaluation, and a full-stack campaign manager.</p>
-      <div class="cards two">
-        <article class="card">
+      <p class="section-kicker">// 05 — AI &amp; technical projects</p>
+      <h2>Applied systems work beyond the day job</h2>
+      <div class="project-list">
+        <article>
           <h3><a href="https://github.com/KaydenClark/LLM_Workbench">LLM Workbench</a></h3>
-          <p>Open-source control-doc harness for AI-agent projects: behavior rules, task queues, verification requirements — plus a runnable eval framework that benchmarks whether template changes actually improve agent outcomes. Because "the agent seems better now" isn't evidence.</p>
-          <div class="chips"><span class="chip">Node.js</span><span class="chip">Evals</span><span class="chip metric">Open source</span></div>
+          <p>Open-source control-document harness for AI-agent projects with behavior rules, task queues, verification requirements, runnable evaluations, and Node.js tooling.</p>
         </article>
-        <article class="card">
-          <h3><a href="openbrain.html">OpenBrain</a></h3>
-          <p>Personal RAG memory system: Supabase Postgres + pgvector, semantic search with dedup on capture, served to any AI client over a custom MCP server on serverless edge functions. Private repo — architecture writeup here.</p>
-          <div class="chips"><span class="chip">pgvector</span><span class="chip">MCP</span><span class="chip">Edge functions</span></div>
+        <article>
+          <h3>AI Agents Presentation</h3>
+          <p>Interactive TypeScript presentation that teaches non-technical audiences what AI agents are and how they work.</p>
         </article>
-        <article class="card">
-          <h3><a href="https://github.com/KaydenClark/DnDWebApp">D&amp;D Campaign Engine</a></h3>
-          <p>The project I wanted to build most out of bootcamp but didn't yet have the skill for — so it became the first thing I pointed AI-assisted development at. Full-stack campaign manager for the game I ran. Archived when the table stopped playing; kept because it timestamps where my AI workflow started.</p>
-          <div class="chips"><span class="chip">React</span><span class="chip">API</span><span class="chip status">Archived</span></div>
+        <article>
+          <h3>Full Stack Web Development</h3>
+          <p>Helio Training certification, Oct 2019 — Jan 2020 · graduated top of class.</p>
         </article>
       </div>
     </div>

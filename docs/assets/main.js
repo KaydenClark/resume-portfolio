@@ -5,7 +5,64 @@
 (function () {
   "use strict";
 
+  var root = document.documentElement;
+  var themeStorageKey = "theme";
+  var explicitTheme = null;
+
+  function systemTheme() {
+    return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  }
+
+  try {
+    explicitTheme = localStorage.getItem("theme");
+  } catch (_error) {
+    explicitTheme = null;
+  }
+
+  if (explicitTheme === "light" || explicitTheme === "dark") {
+    root.setAttribute("data-theme", explicitTheme);
+  } else {
+    root.setAttribute("data-theme", systemTheme());
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
+    /* ---------- light/dark theme ---------- */
+    var themeToggle = document.getElementById("theme-toggle");
+    var themeMedia = window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null;
+
+    function syncThemeControl() {
+      if (!themeToggle) return;
+      var current = root.getAttribute("data-theme") || systemTheme();
+      var next = current === "dark" ? "light" : "dark";
+      var label = themeToggle.querySelector(".theme-toggle-text");
+      themeToggle.setAttribute("aria-label", "Switch to " + next + " theme");
+      themeToggle.setAttribute("aria-pressed", String(current === "dark"));
+      if (label) label.textContent = next.charAt(0).toUpperCase() + next.slice(1);
+    }
+
+    if (themeToggle) {
+      syncThemeControl();
+      themeToggle.addEventListener("click", function () {
+        var next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+        root.setAttribute("data-theme", next);
+        explicitTheme = next;
+        try {
+          localStorage.setItem(themeStorageKey, next);
+        } catch (_error) {
+          // The visual control still works when storage is unavailable.
+        }
+        syncThemeControl();
+      });
+    }
+
+    if (themeMedia && typeof themeMedia.addEventListener === "function") {
+      themeMedia.addEventListener("change", function () {
+        if (explicitTheme) return;
+        root.setAttribute("data-theme", systemTheme());
+        syncThemeControl();
+      });
+    }
+
     /* ---------- interactive diagrams ---------- */
     // Each diagram: <figure class="diagram"> containing .dg-node[data-info] elements
     // and a .diagram-caption. Hover or focus a node -> caption swaps to its explanation.

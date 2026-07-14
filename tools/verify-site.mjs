@@ -64,11 +64,21 @@ for (const file of publishable) {
 /* ---------- gate 2: internal link check ---------- */
 for (const file of walk(path.join(root, 'docs'), ['.html'])) {
   const html = fs.readFileSync(file, 'utf8');
-  for (const m of html.matchAll(/(?:href|src)="([^"#]+)"/g)) {
+  for (const m of html.matchAll(/(?:href|src)="([^"]+)"/g)) {
     const url = m[1];
     if (/^(https?:|mailto:|data:)/.test(url)) continue;
-    const target = path.resolve(path.dirname(file), url.split('?')[0]);
+    const [withoutFragment, rawFragment] = url.split('#', 2);
+    const localPath = withoutFragment.split('?')[0];
+    let target = localPath ? path.resolve(path.dirname(file), localPath) : file;
+    if (fs.existsSync(target) && fs.statSync(target).isDirectory()) target = path.join(target, 'index.html');
     if (!fs.existsSync(target)) failures.push(`LINK ${rel(file)} -> ${url} does not resolve`);
+    if (!rawFragment || !fs.existsSync(target) || path.extname(target).toLowerCase() !== '.html') continue;
+    let fragment = rawFragment;
+    try { fragment = decodeURIComponent(rawFragment); } catch { /* report the raw fragment below */ }
+    const targetHtml = fs.readFileSync(target, 'utf8');
+    if (!targetHtml.includes(`id="${fragment}"`) && !targetHtml.includes(`name="${fragment}"`)) {
+      failures.push(`LINK ${rel(file)} -> ${url} has no matching fragment target`);
+    }
   }
 }
 
@@ -96,30 +106,57 @@ const indexPath = path.join(root, 'docs', 'index.html');
 const stylePath = path.join(root, 'docs', 'assets', 'style.css');
 if (fs.existsSync(indexPath)) {
   const index = fs.readFileSync(indexPath, 'utf8');
-  for (const marker of ['class="identity-card"', 'class="section-kicker"', 'assets/headshot.jpg']) {
+  for (const marker of [
+    'class="identity-card"',
+    'class="section-kicker"',
+    'assets/headshot.jpg',
+    'id="summary"',
+    'id="core-skills"',
+    'id="experience"',
+    'id="achievements"',
+    'id="projects"',
+  ]) {
     if (!index.includes(marker)) failures.push(`BRAND docs/index.html is missing ${marker}`);
   }
 }
 if (fs.existsSync(stylePath)) {
   const css = fs.readFileSync(stylePath, 'utf8');
-  for (const marker of ['--rainbow:', '--pattern:', '.identity-card', '.brand::before']) {
+  for (const marker of [
+    '--royal-gold: #9d8106;',
+    '--accent-contrast: #fffdfa;',
+    '--accent-contrast: #11100d;',
+    '--rainbow:',
+    '#de2b31',
+    '#885a89',
+    '#4daa57',
+    '#3a7ca5',
+    '#e0bd3e',
+    '#cf4f84',
+    '#ff6201',
+    '#1abcbd',
+    '--pattern:',
+    "width='53' height='95'",
+    "opacity='.07'",
+    '.identity-card',
+    '.brand::before',
+    '.diamond-cluster',
+    '.theme-toggle',
+    '[data-theme="dark"]',
+  ]) {
     if (!css.includes(marker)) failures.push(`BRAND docs/assets/style.css is missing ${marker}`);
   }
-  if (css.includes('[data-theme="dark"]')) failures.push('BRAND docs/assets/style.css still contains a dark-theme override');
-  if (css.includes('#theme-toggle')) failures.push('BRAND docs/assets/style.css still contains theme-toggle styling');
-  if (css.includes('color-scheme: dark')) failures.push('BRAND docs/assets/style.css still declares a dark color scheme');
 }
 
 for (const file of walk(path.join(root, 'docs'), ['.html'])) {
   const html = fs.readFileSync(file, 'utf8');
-  if (html.includes('id="theme-toggle"')) failures.push(`BRAND ${rel(file)} still exposes a theme toggle`);
+  if (!html.includes('id="theme-toggle"')) failures.push(`BRAND ${rel(file)} is missing the theme toggle`);
 }
 
 const scriptPath = path.join(root, 'docs', 'assets', 'main.js');
 if (fs.existsSync(scriptPath)) {
   const script = fs.readFileSync(scriptPath, 'utf8');
   for (const marker of ['localStorage.getItem("theme")', 'function systemTheme()', 'data-theme']) {
-    if (script.includes(marker)) failures.push(`BRAND docs/assets/main.js still contains theme behavior: ${marker}`);
+    if (!script.includes(marker)) failures.push(`BRAND docs/assets/main.js is missing theme behavior: ${marker}`);
   }
 }
 
