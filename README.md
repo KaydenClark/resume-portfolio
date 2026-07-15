@@ -15,6 +15,9 @@ part of the current public navigation.
 ## Structure
 
 - `docs/` — the site. Plain HTML/CSS/JS, no build step, no dependencies.
+- `specs/` — stable capability requirements, decisions, and proof.
+- `LEXICON.md` — shared product and lifecycle vocabulary.
+- `TASKBOARD.md` — generated active-work projection.
 - Everything else in this repo directory is **ignored by git** (whitelist `.gitignore`) — working files never publish.
 
 ## Local preview

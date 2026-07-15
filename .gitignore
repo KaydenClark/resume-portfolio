@@ -12,6 +12,7 @@
 # LLM Workbench v2.3 harness (control docs, specs, tooling)
 !/AGENTS.md
 !/BLUEPRINT.md
+!/LEXICON.md
 !/TASKBOARD.md
 !/RUNBOOK.md
 !/HARNESS_FEEDBACK.md
