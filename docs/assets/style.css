@@ -806,6 +806,10 @@ footer.site a { color: var(--link); }
 .project-feature > p:not(.project-eyebrow) { color: var(--text-dim); line-height: 1.7; margin: 0; max-width: 36rem; position: relative; }
 .project-notes { display: flex; flex-wrap: wrap; gap: .45rem; list-style: none; margin: 1.4rem 0 0; padding: 0; position: relative; }
 .project-notes li { background: var(--accent-soft); border: 1px solid var(--accent-dim); border-radius: 999px; color: var(--accent); font-size: .7rem; font-weight: 700; padding: .35rem .65rem; }
+.project-feature-agents { grid-column: 1 / -1; min-height: 0; }
+.project-feature-agents > p:not(.project-eyebrow) { max-width: 52rem; }
+.project-links { display: flex; flex-wrap: wrap; gap: .65rem; margin-top: 1.4rem; position: relative; }
+.project-links .btn { display: inline-flex; }
 .project-feature-music::after {
   border: 1px solid #1abcbd;
   border-radius: 50%;
@@ -896,6 +900,7 @@ th { color: var(--text-dim); }
   .system-feature-heading h1 { max-width: 12ch; }
   .system-feature-copy { border-left: 0; border-top: 1px solid var(--border); padding-left: 0; padding-top: 1.25rem; }
   .project-feature-grid { grid-template-columns: 1fr; }
+  .project-feature-agents { grid-column: auto; }
   .project-feature { min-height: 21rem; }
   .role-heading { display: block; }
   .role-heading .role-date { margin-top: .45rem; }

@@ -188,14 +188,30 @@ if (fs.existsSync(resumePath)) {
 
 if (fs.existsSync(projectsPath)) {
   const projects = fs.readFileSync(projectsPath, 'utf8');
-  for (const marker of ['The system behind the work', 'LLM Workbench', 'Things I’m building because I want them to exist', 'Dungeon Friends', 'Spotify']) {
+  for (const marker of ['The system behind the work', 'LLM Workbench', 'Things I’m building because I want them to exist', 'AI Agents Presentation', 'Dungeon Friends', 'Spotify']) {
     if (!projects.includes(marker)) failures.push(`SURFACE docs/projects.html is missing ${marker}`);
   }
-  if (projects.indexOf('The system behind the work') > projects.indexOf('Things I’m building because I want them to exist')) {
-    failures.push('SURFACE docs/projects.html places LLM Workbench after the personal-projects title');
+  const orderedProjects = [
+    { name: 'LLM Workbench', marker: 'The system behind the work' },
+    { name: 'AI Agents Presentation', marker: '<h2>AI Agents Presentation</h2>' },
+    { name: 'Dungeon Friends', marker: '<h2>Dungeon Friends</h2>' },
+    { name: 'Spotify', marker: '<h2>Spotify Listening</h2>' },
+  ];
+  for (let index = 1; index < orderedProjects.length; index += 1) {
+    const previous = orderedProjects[index - 1];
+    const current = orderedProjects[index];
+    if (projects.indexOf(previous.marker) > projects.indexOf(current.marker)) {
+      failures.push(`SURFACE docs/projects.html places ${current.name} before ${previous.name}`);
+    }
   }
   const numberedProjectCards = (projects.match(/class="project-feature project-feature-/g) ?? []).length;
-  if (numberedProjectCards !== 2) failures.push(`SURFACE docs/projects.html has ${numberedProjectCards} numbered project cards, expected 2`);
+  if (numberedProjectCards !== 3) failures.push(`SURFACE docs/projects.html has ${numberedProjectCards} numbered project cards, expected 3`);
+  for (const destination of [
+    'https://what-are-agents-presentation.vercel.app/',
+    'https://github.com/KaydenClark/AI_Agents_Presentation',
+  ]) {
+    if (!projects.includes(`href="${destination}"`)) failures.push(`SURFACE docs/projects.html is missing ${destination}`);
+  }
   for (const retiredMarker of ['OpenBrain', 'Campaign Reporting', 'case-studies/']) {
     if (projects.includes(retiredMarker)) failures.push(`SURFACE docs/projects.html still exposes ${retiredMarker}`);
   }
