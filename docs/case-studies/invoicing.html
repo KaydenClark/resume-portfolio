@@ -1,146 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-retired-route>
 <head>
 <meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta http-equiv="refresh" content="0; url=../projects.html">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Hours, Invoicing &amp; Margin Engine — Kayden Clark</title>
-<meta name="description" content="End-to-end monthly billing for a multi-million-dollar client portfolio, with reconciliation gates that make wrong invoices structurally hard.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230e1116'/%3E%3Ctext x='50' y='68' font-size='52' text-anchor='middle' fill='%234cc38a' font-family='system-ui' font-weight='700'%3EKC%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="../assets/style.css">
-<script src="../assets/main.js" defer></script>
+<title>Work sample retired — Kayden Clark</title>
+<link rel="canonical" href="../projects.html">
 </head>
 <body>
-<a class="skip-link" href="#main">Skip to content</a>
-
-<header class="site">
-  <div class="wrap">
-    <a class="brand" href="../">Kayden<span> Clark</span></a>
-    <nav class="main" aria-label="Site">
-      <a href="../#systems" aria-current="page">Systems</a>
-      <a href="../#experience">Experience</a>
-      <a href="../assets/Kayden-Clark-Resume-2026.pdf">Resume</a>
-      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">
-        <span class="theme-toggle-icon" aria-hidden="true"></span>
-        <span class="theme-toggle-text">Dark</span>
-      </button>
-    </nav>
-  </div>
-</header>
-
-<main id="main">
-<div class="cs-header">
-  <div class="wrap">
-    <p class="crumb"><a href="../#systems">← Systems I've Shipped</a></p>
-    <h1>Hours, Invoicing &amp; Margin Engine</h1>
-    <ul class="fact-strip">
-      <li class="hot">Multi-million-dollar portfolio</li>
-      <li class="hot">Director review within 2 business days of close</li>
-      <li>Owner / operator</li>
-      <li>2020 – present</li>
-    </ul>
-  </div>
-</div>
-
-<article class="cs">
-  <div class="wrap">
-
-    <h2>The situation</h2>
-    <p>A multi-client BPO bills each client monthly for contractor hours across multiple roles, rates, and purchase orders. The lifecycle: collect hours, reconcile against payroll source-of-truth, produce draft billing details and invoices, clear an external client approval gate, issue finals, get paid. Done manually, this consumes analysts and produces disputes.</p>
-
-    <h2>Constraints</h2>
-    <ul>
-      <li><strong>External approval gates.</strong> Clients approve drafts before finals exist — the workflow has a hard-stop control point that must be auditable.</li>
-      <li><strong>Multiple sources of truth to reconcile.</strong> Timecard systems, Paycom payroll exports, approved OT/VTO adjustments — all of which must agree before an invoice is defensible.</li>
-      <li><strong>PO hygiene.</strong> PO and PO-line details change across fiscal years; a stale PO number is a rejected invoice.</li>
-    </ul>
-
-    <h2>What I built</h2>
-    <p>An end-to-end billing engine using the same paste-validate-publish pattern as my reporting systems:</p>
-    <ul>
-      <li><strong>Ingest:</strong> raw Paycom time-detail exports drop in unedited</li>
-      <li><strong>Reconcile:</strong> approved OT and VTO applied against source-of-truth hours; discrepancies surface <em>before</em> anything is billed</li>
-      <li><strong>Roll up:</strong> hours by client, role, and rate → invoice-ready billing detail</li>
-      <li><strong>Margin view:</strong> a GPM heatmap by account, so billing data doubles as the margin-management instrument leadership actually uses</li>
-      <li><strong>Process control:</strong> the draft → client approval → final workflow, which I documented into the standing SOP after it resolved a recurring client billing dispute</li>
-    </ul>
-
-    <figure class="diagram">
-      <div class="diagram-frame">
-      <svg viewBox="0 0 760 260" role="img" aria-label="Workflow diagram: hours are ingested and reconciled, draft invoices go to the client approval gate, then finals are issued to accounting. A margin heatmap feeds leadership.">
-        <defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z"/></marker></defs>
-        <g class="dg-node" data-title="Ingest" data-info="Raw Paycom time-detail exports and timecard data drop in unedited. Quarantined inputs — the audit trail starts here.">
-          <rect x="20" y="40" width="140" height="58"/>
-          <text x="90" y="64" text-anchor="middle">Ingest Hours</text>
-          <text x="90" y="81" text-anchor="middle" class="sub">Paycom · timecards</text>
-        </g>
-        <g class="dg-node" data-title="Reconcile" data-info="Approved OT and VTO applied against source-of-truth hours. Every formula wrapped in validation — discrepancies show as flags, never as wrong invoices. Nothing bills until this agrees.">
-          <rect x="200" y="40" width="140" height="58"/>
-          <text x="270" y="64" text-anchor="middle">Reconcile</text>
-          <text x="270" y="81" text-anchor="middle" class="sub">OT · VTO · source of truth</text>
-        </g>
-        <g class="dg-node" data-title="Draft Billing" data-info="Invoice-ready billing detail by client, role, and rate — with current PO and PO-line data maintained across fiscal-year changes.">
-          <rect x="380" y="40" width="140" height="58"/>
-          <text x="450" y="64" text-anchor="middle">Draft Billing</text>
-          <text x="450" y="81" text-anchor="middle" class="sub">detail + invoices</text>
-        </g>
-        <g class="dg-node" data-title="Client Approval Gate" data-info="An explicit workflow state, not an email convention. Clients approve drafts before finals exist. Documenting this gate ended a recurring billing dispute and became the standing SOP.">
-          <rect x="560" y="40" width="180" height="58"/>
-          <text x="650" y="64" text-anchor="middle">Client Approval Gate</text>
-          <text x="650" y="81" text-anchor="middle" class="sub">hard stop · auditable</text>
-        </g>
-        <g class="dg-node" data-title="Finals to Accounting" data-info="Approved finals issued and distributed — out to accounting in as fast as 3 days from month close.">
-          <rect x="560" y="160" width="180" height="58"/>
-          <text x="650" y="184" text-anchor="middle">Finals → Accounting</text>
-          <text x="650" y="201" text-anchor="middle" class="sub">as fast as 3 days</text>
-        </g>
-        <g class="dg-node" data-title="GPM Heatmap" data-info="Margin by account, visualized. The same data that bills the client is the instrument leadership uses to rebalance cost allocation — one pipeline, two products.">
-          <rect x="200" y="160" width="140" height="58"/>
-          <text x="270" y="184" text-anchor="middle">GPM Heatmap</text>
-          <text x="270" y="201" text-anchor="middle" class="sub">leadership view</text>
-        </g>
-        <path class="dg-arrow" d="M160,69 H196"/>
-        <path class="dg-arrow" d="M340,69 H376"/>
-        <path class="dg-arrow" d="M520,69 H556"/>
-        <path class="dg-arrow" d="M650,102 V156"/>
-        <path class="dg-arrow loop" d="M270,102 V156"/>
-      </svg>
-      </div>
-      <p class="diagram-caption">Ingest → Reconcile → Draft → Approval Gate → Finals, with margin analysis riding the same pipeline. Hover or tab through any step.</p>
-      <figcaption class="hint">Interactive: hover, tap, or keyboard-focus a node.</figcaption>
-    </figure>
-
-    <p>I also serve as the invoice validation gate for leadership: vendor and contractor invoices reconciled against Paycom same-day, with director-level approval signaled on the numbers.</p>
-
-    <h2>Why it matters</h2>
-    <div class="callout">Billing is where reporting mistakes become money. The system is built so the person running it cannot silently produce a wrong number: raw data is quarantined, reconciliation happens before rollup, and the client approval gate is an explicit workflow state. That's what made it fast — speed came from removing rework and disputes, not from working harder.</div>
-
-    <h2>Impact</h2>
-    <ul class="impact-grid">
-      <li><span class="big">2 business days</span><span class="label">from month close to invoices submitted for director review (July 2026 close: submitted 7/2 EOD) — repeatedly recognized by the director as the fastest submission in the portfolio</span></li>
-      <li><span class="big">3 days</span><span class="label">fastest finals-to-accounting turnaround</span></li>
-      <li><span class="big">Same day</span><span class="label">invoice validation turnaround for director approval</span></li>
-      <li><span class="big">12+ months</span><span class="label">consecutive fully accurate, on-time billing and reporting under weekly and monthly deadlines</span></li>
-    </ul>
-    <p>A recurring client billing dispute was eliminated by documenting the draft-to-final control — adopted as the standing SOP between finance ops and the client. Every formula is wrapped in validation; errors show as flags, not as wrong invoices.</p>
-
-    <h2>Artifacts</h2>
-    <ul>
-      <li><a href="operations-systems-playbook.html#workflow">Approval-to-billing workflow</a> — intake, reconciliation, approval, exception, and handoff states</li>
-      <li><a href="operations-systems-playbook.html#uat">Billing control matrix and UAT checklist</a> — the checks required before a draft becomes a final</li>
-    </ul>
-
-    <nav class="cs-nav" aria-label="Case studies">
-      <a href="campaign-rollups.html">← Turnkey Campaign Reporting</a>
-      <a href="roster.html">Next: Roster System →</a>
-    </nav>
-  </div>
-</article>
-</main>
-
-<footer class="site">
-  <div class="wrap">
-    <span><a href="mailto:kaydenclark725@gmail.com">Email</a> · <a href="https://github.com/KaydenClark">GitHub</a> · <a href="../assets/Kayden-Clark-Resume-2026.pdf">Resume</a></span>
-  </div>
-</footer>
+<p>This work sample is no longer part of the public portfolio. <a href="../projects.html">View current projects</a>.</p>
+<script>location.replace("../projects.html");</script>
 </body>
 </html>

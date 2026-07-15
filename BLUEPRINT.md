@@ -113,6 +113,7 @@ Design decisions recorded at bootstrap (owner-confirmed unless noted):
 | [S-004 - Brand Template Alignment](specs/S-004-brand-template-alignment/SPEC.md) | Apply the supplied SLK brand template to the static portfolio without changing its verified content architecture. | complete |
 | [S-005 - Light-Only Brand Template](specs/S-005-light-only-template/SPEC.md) | Lock the portfolio to the supplied light Brand Template and remove dark-theme overrides. | complete |
 | [S-006 - CV-First Royal Theme](specs/S-006-cv-first-royal-theme/SPEC.md) | Reframe the portfolio around the current CV with an accessible royal light/dark theme and refined rainbow geometry. | complete |
+| [S-007 - Multipage Public Surface](specs/S-007-multipage-public-surface/SPEC.md) | Split the feedback site into a minimal landing page, one complete resume page, and a focused projects page while retiring unfinished public work. | complete |
 <!-- spec-catalog:end -->
 
 ## Cross-Cutting Health
