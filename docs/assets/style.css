@@ -681,6 +681,107 @@ footer.site a { color: var(--link); }
 .achievement-list li:nth-child(3)::before { border-color: #1abcbd; }
 .achievement-list strong { color: var(--text-strong); }
 
+/* Multipage public surface (S-007) */
+.landing-page {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.landing-page main { display: flex; flex: 1; }
+.landing-hero { align-items: center; display: flex; padding-block: clamp(2rem, 7vh, 5.5rem); width: 100%; }
+.landing-footer { margin-top: 0; }
+
+.page-intro { padding: clamp(3rem, 8vw, 6rem) 0 2.4rem; }
+.page-intro .narrow { max-width: 54rem; }
+.page-intro h1 {
+  color: var(--text-strong);
+  font-size: clamp(2.25rem, 6vw, 4.5rem);
+  font-weight: 900;
+  letter-spacing: -.045em;
+  line-height: .98;
+  margin: 0;
+  max-width: 16ch;
+}
+.page-intro h1::after {
+  background: var(--rainbow);
+  content: "";
+  display: block;
+  height: 3px;
+  margin-top: 1.35rem;
+  max-width: 100%;
+  width: 20rem;
+}
+.page-intro .tagline { margin-top: 1.35rem; max-width: 48rem; }
+.page-intro .hero-links { margin-top: 1.4rem; }
+
+.projects-intro { padding-bottom: 1.2rem; }
+.project-showcase { padding-top: 1.2rem; }
+.project-feature-grid { display: grid; gap: 1.1rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.project-feature {
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  min-height: 23rem;
+  overflow: hidden;
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  position: relative;
+}
+.project-feature::before {
+  background: var(--rainbow);
+  content: "";
+  height: 3px;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.project-feature-number {
+  color: var(--border);
+  font-size: clamp(4.5rem, 12vw, 8rem);
+  font-weight: 900;
+  line-height: .8;
+  position: absolute;
+  right: 1.25rem;
+  top: 1.5rem;
+}
+.project-eyebrow {
+  color: var(--gold-ink);
+  font-size: .7rem;
+  font-weight: 800;
+  letter-spacing: .13em;
+  margin: 0 0 5rem;
+  position: relative;
+  text-transform: uppercase;
+}
+.project-feature h2 { color: var(--text-strong); font-size: clamp(1.8rem, 4vw, 2.7rem); margin: 0 0 .8rem; position: relative; }
+.project-feature > p:not(.project-eyebrow) { color: var(--text-dim); line-height: 1.7; margin: 0; max-width: 36rem; position: relative; }
+.project-notes { display: flex; flex-wrap: wrap; gap: .45rem; list-style: none; margin: 1.4rem 0 0; padding: 0; position: relative; }
+.project-notes li { background: var(--accent-soft); border: 1px solid var(--accent-dim); border-radius: 999px; color: var(--accent); font-size: .7rem; font-weight: 700; padding: .35rem .65rem; }
+.project-feature-music::after {
+  border: 1px solid #1abcbd;
+  border-radius: 50%;
+  bottom: -4rem;
+  content: "";
+  height: 9rem;
+  opacity: .25;
+  position: absolute;
+  right: -2rem;
+  width: 9rem;
+}
+
+.visually-hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
 /* Case studies and long-form pages */
 .cs-header { padding: 2.5rem 0 .75rem; }
 .cs-header .wrap,
@@ -729,9 +830,10 @@ th { color: var(--text-dim); }
 
 @media (max-width: 640px) {
   header.site .wrap { align-items: center; flex-wrap: nowrap; }
+  .brand { font-size: 0; gap: 0; }
+  .brand span { display: none; }
   nav.main { flex: 0 0 auto; justify-content: flex-end; }
-  nav.main a { display: none; }
-  nav.main a[href$="Resume-2026.pdf"] { display: inline-block; }
+  nav.main a[href$="Resume-2026.pdf"] { display: none; }
   .hero { padding-top: 1.3rem; }
   .identity-card { display: block; padding: 2rem 1.35rem 1.65rem; }
   .identity-portrait { height: 9.5rem; margin-bottom: 1.25rem; width: 9.5rem; }
@@ -742,6 +844,8 @@ th { color: var(--text-dim); }
   .meta-line { overflow-wrap: normal; }
   section { padding-top: 2.2rem; }
   .skill-groups, .project-list { grid-template-columns: 1fr; }
+  .project-feature-grid { grid-template-columns: 1fr; }
+  .project-feature { min-height: 21rem; }
   .role-heading { display: block; }
   .role-heading .role-date { margin-top: .45rem; }
   .experience-card { padding: 1.1rem; }

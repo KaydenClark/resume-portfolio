@@ -7,6 +7,7 @@
 //   2. LINK CHECK  - every internal href/src in docs/ resolves to a real file
 //   3. PLACEHOLDERS- no [ALL_CAPS_BRACKET] template tokens left in control docs or specs
 //   4. BRAND SYSTEM- required local assets and template-aligned primitives are present
+//   5. PUBLIC SURFACE - landing, resume, projects, and retired routes stay separated
 //
 // Why this exists (design-for-misuse): the most likely human error in this repo
 // is pasting real client data into a publishable file. This makes that error
@@ -108,13 +109,10 @@ if (fs.existsSync(indexPath)) {
   const index = fs.readFileSync(indexPath, 'utf8');
   for (const marker of [
     'class="identity-card"',
-    'class="section-kicker"',
     'assets/headshot.jpg',
     'id="summary"',
-    'id="core-skills"',
-    'id="experience"',
-    'id="achievements"',
-    'id="projects"',
+    'href="resume.html"',
+    'href="projects.html"',
   ]) {
     if (!index.includes(marker)) failures.push(`BRAND docs/index.html is missing ${marker}`);
   }
@@ -149,14 +147,63 @@ if (fs.existsSync(stylePath)) {
 
 for (const file of walk(path.join(root, 'docs'), ['.html'])) {
   const html = fs.readFileSync(file, 'utf8');
-  if (!html.includes('id="theme-toggle"')) failures.push(`BRAND ${rel(file)} is missing the theme toggle`);
+  if (!html.includes('data-retired-route') && !html.includes('id="theme-toggle"')) {
+    failures.push(`BRAND ${rel(file)} is missing the theme toggle`);
+  }
 }
 
 const scriptPath = path.join(root, 'docs', 'assets', 'main.js');
 if (fs.existsSync(scriptPath)) {
   const script = fs.readFileSync(scriptPath, 'utf8');
-  for (const marker of ['localStorage.getItem("theme")', 'function systemTheme()', 'data-theme']) {
+  for (const marker of ['localStorage.getItem("theme")', 'var defaultTheme = "light"', 'data-theme']) {
     if (!script.includes(marker)) failures.push(`BRAND docs/assets/main.js is missing theme behavior: ${marker}`);
+  }
+}
+
+/* ---------- gate 5: multipage public-surface contract ---------- */
+const resumePath = path.join(root, 'docs', 'resume.html');
+const projectsPath = path.join(root, 'docs', 'projects.html');
+
+for (const requiredPath of [indexPath, resumePath, projectsPath]) {
+  if (!fs.existsSync(requiredPath)) failures.push(`SURFACE ${rel(requiredPath)} is missing`);
+}
+
+if (fs.existsSync(indexPath)) {
+  const index = fs.readFileSync(indexPath, 'utf8');
+  for (const marker of ['href="resume.html"', 'href="projects.html"']) {
+    if (!index.includes(marker)) failures.push(`SURFACE docs/index.html is missing ${marker}`);
+  }
+  for (const retiredMarker of ['id="core-skills"', 'id="experience"', 'id="systems"', 'id="projects"']) {
+    if (index.includes(retiredMarker)) failures.push(`SURFACE docs/index.html still contains ${retiredMarker}`);
+  }
+}
+
+if (fs.existsSync(resumePath)) {
+  const resume = fs.readFileSync(resumePath, 'utf8');
+  for (const marker of ['id="summary"', 'id="core-skills"', 'id="experience"', 'id="achievements"', 'id="resume-projects"']) {
+    if (!resume.includes(marker)) failures.push(`SURFACE docs/resume.html is missing ${marker}`);
+  }
+  if (resume.includes('id="systems"')) failures.push('SURFACE docs/resume.html exposes unfinished case studies');
+}
+
+if (fs.existsSync(projectsPath)) {
+  const projects = fs.readFileSync(projectsPath, 'utf8');
+  for (const marker of ['Dungeon Friends', 'Spotify']) {
+    if (!projects.includes(marker)) failures.push(`SURFACE docs/projects.html is missing ${marker}`);
+  }
+  for (const retiredMarker of ['OpenBrain', 'Campaign Reporting', 'case-studies/']) {
+    if (projects.includes(retiredMarker)) failures.push(`SURFACE docs/projects.html still exposes ${retiredMarker}`);
+  }
+}
+
+for (const retiredPath of [
+  path.join(root, 'docs', 'openbrain.html'),
+  ...walk(path.join(root, 'docs', 'case-studies'), ['.html']),
+]) {
+  if (!fs.existsSync(retiredPath)) continue;
+  const retired = fs.readFileSync(retiredPath, 'utf8');
+  if (!retired.includes('data-retired-route') || !retired.includes('url=../projects.html') && !retired.includes('url=projects.html')) {
+    failures.push(`SURFACE ${rel(retiredPath)} is not a retired redirect`);
   }
 }
 

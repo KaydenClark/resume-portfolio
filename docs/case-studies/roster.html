@@ -1,151 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-retired-route>
 <head>
 <meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta http-equiv="refresh" content="0; url=../projects.html">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Roster System: 279 On, 279 Off — Kayden Clark</title>
-<meta name="description" content="Triple-validated headcount across an entire portfolio — proven on a six-week, 279-person ramp and a 3-person campaign alike.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230e1116'/%3E%3Ctext x='50' y='68' font-size='52' text-anchor='middle' fill='%234cc38a' font-family='system-ui' font-weight='700'%3EKC%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="../assets/style.css">
-<script src="../assets/main.js" defer></script>
+<title>Work sample retired — Kayden Clark</title>
+<link rel="canonical" href="../projects.html">
 </head>
 <body>
-<a class="skip-link" href="#main">Skip to content</a>
-
-<header class="site">
-  <div class="wrap">
-    <a class="brand" href="../">Kayden<span> Clark</span></a>
-    <nav class="main" aria-label="Site">
-      <a href="../#systems" aria-current="page">Systems</a>
-      <a href="../#experience">Experience</a>
-      <a href="../assets/Kayden-Clark-Resume-2026.pdf">Resume</a>
-      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">
-        <span class="theme-toggle-icon" aria-hidden="true"></span>
-        <span class="theme-toggle-text">Dark</span>
-      </button>
-    </nav>
-  </div>
-</header>
-
-<main id="main">
-<div class="cs-header">
-  <div class="wrap">
-    <p class="crumb"><a href="../#systems">← Systems I've Shipped</a></p>
-    <h1>Roster System: 279 People On — and Off — in Six Weeks</h1>
-    <ul class="fact-strip">
-      <li class="hot">279 people / 6 weeks</li>
-      <li class="hot">Scales from 279 heads to 3</li>
-      <li>Co-author</li>
-      <li>Portfolio-wide standard</li>
-    </ul>
-  </div>
-</div>
-
-<article class="cs">
-  <div class="wrap">
-
-    <h2>The situation</h2>
-    <p>A seasonal wagering client needed a massive short-term ramp: <strong>279 people hired, onboarded, and then off-boarded within six weeks.</strong> Every one of those moves had to be coordinated across IT (provisioning and deprovisioning), recruiting, and my internal operations team — and every headcount number had to survive an audit, because roster data feeds staffing plans, cost allocation, and client billing downstream.</p>
-
-    <h2>Constraints</h2>
-    <ul>
-      <li><strong>Three departments, one truth.</strong> IT, recruiting, and operations each act on roster changes; a missed term date means an account left active or a paycheck error.</li>
-      <li><strong>Loss can't be fatal.</strong> Hire and term data had to be recoverable even if the roster itself was damaged or overwritten.</li>
-      <li><strong>Scale both directions.</strong> The same process had to work for a 279-person surge and for a 3-person specialty health campaign — without feeling like bureaucracy on the small end.</li>
-    </ul>
-
-    <h2>What we built</h2>
-    <p>A master roster per campaign with a <strong>triple-validation loop</strong>:</p>
-    <ol>
-      <li><strong>Real-time updates.</strong> The roster is the live source of truth; changes land as they happen.</li>
-      <li><strong>Monthly validation.</strong> A scheduled full check of the roster against reality, on every campaign, every month.</li>
-      <li><strong>Email confirmation trail.</strong> Critical changes — hires and terms — also go out by email, creating an out-of-band backup that can restore lost data, and an audit trail of who knew what, when.</li>
-    </ol>
-
-    <figure class="diagram">
-      <div class="diagram-frame">
-      <svg viewBox="0 0 760 280" role="img" aria-label="Diagram: the master roster at center receives real-time updates and is checked by a monthly validation loop and an email confirmation trail; validated counts flow to IT, recruiting, allocation, and billing.">
-        <defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z"/></marker></defs>
-        <g class="dg-node" data-title="Master Roster" data-info="One live source of truth per campaign, same schema everywhere. Designating WHERE information lives is most of the battle — even a 3-person campaign runs this loop.">
-          <rect x="300" y="105" width="160" height="64"/>
-          <text x="380" y="132" text-anchor="middle">Master Roster</text>
-          <text x="380" y="149" text-anchor="middle" class="sub">live source of truth</text>
-        </g>
-        <g class="dg-node" data-title="Real-time updates" data-info="Validation #1. Hires, terms, transfers land as they happen — speed. During the ramp this meant 279 arrivals and departures tracked without a batch backlog.">
-          <rect x="40" y="30" width="170" height="54"/>
-          <text x="125" y="52" text-anchor="middle">1 · Real-time updates</text>
-          <text x="125" y="69" text-anchor="middle" class="sub">speed</text>
-        </g>
-        <g class="dg-node" data-title="Monthly validation" data-info="Validation #2. A scheduled full check of roster vs. reality on every campaign — catches drift that real-time entry misses.">
-          <rect x="40" y="115" width="170" height="54"/>
-          <text x="125" y="137" text-anchor="middle">2 · Monthly validation</text>
-          <text x="125" y="154" text-anchor="middle" class="sub">drift</text>
-        </g>
-        <g class="dg-node" data-title="Email confirmation trail" data-info="Validation #3. Hire and term data also travels by email — an out-of-band backup that can restore lost data, and a timestamped record of who was informed. Disaster recovery built into the process.">
-          <rect x="40" y="200" width="170" height="54"/>
-          <text x="125" y="222" text-anchor="middle">3 · Email trail</text>
-          <text x="125" y="239" text-anchor="middle" class="sub">recovery + audit</text>
-        </g>
-        <g class="dg-node" data-title="IT" data-info="Provisioning and deprovisioning driven by validated roster changes — a missed term date means an account left active. The system informs by process, not by memory.">
-          <rect x="560" y="20" width="170" height="48"/>
-          <text x="645" y="48" text-anchor="middle">IT · provisioning</text>
-        </g>
-        <g class="dg-node" data-title="Recruiting" data-info="Cohort starts and pipeline coordination consume the same validated counts operations sees.">
-          <rect x="560" y="85" width="170" height="48"/>
-          <text x="645" y="113" text-anchor="middle">Recruiting · cohorts</text>
-        </g>
-        <g class="dg-node" data-title="Cost allocation" data-info="The leadership allocation model consumes validated headcount, not self-reported numbers — allocations must total 100%.">
-          <rect x="560" y="150" width="170" height="48"/>
-          <text x="645" y="178" text-anchor="middle">Cost allocation</text>
-        </g>
-        <g class="dg-node" data-title="Billing" data-info="Point-in-time headcount is reconstructable from the email trail — protecting billing periods and audits.">
-          <rect x="560" y="215" width="170" height="48"/>
-          <text x="645" y="243" text-anchor="middle">Client billing</text>
-        </g>
-        <path class="dg-arrow" d="M210,57 C260,60 280,90 300,110"/>
-        <path class="dg-arrow" d="M210,142 H296"/>
-        <path class="dg-arrow loop" d="M210,227 C260,224 280,190 300,164"/>
-        <path class="dg-arrow" d="M460,120 C505,105 520,70 556,50"/>
-        <path class="dg-arrow" d="M460,130 C505,125 520,115 556,110"/>
-        <path class="dg-arrow" d="M460,150 C505,155 520,165 556,172"/>
-        <path class="dg-arrow" d="M460,160 C505,175 520,210 556,235"/>
-      </svg>
-      </div>
-      <p class="diagram-caption">Three validation paths in, four validated consumers out. Hover or tab through any node for the design reasoning.</p>
-      <figcaption class="hint">Interactive: hover, tap, or keyboard-focus a node.</figcaption>
-    </figure>
-
-    <p>The design principle: everyone who needs to know gets informed <em>by the process itself</em>, not by someone remembering to tell them. The small campaigns are where informal process quietly rots — so the 3-person campaign runs the same loop as the 279-person ramp.</p>
-
-    <h2>Why it matters</h2>
-    <div class="callout">Roster data is the upstream dependency nobody owns until it breaks something expensive. The triple loop treats data loss and human forgetfulness as expected failure modes, not surprises: real-time for speed, monthly for drift, email for disaster recovery. It worked across a 93x scale difference because the process was designed around how it fails, not how it's supposed to go.</div>
-
-    <h2>Impact</h2>
-    <ul class="impact-grid">
-      <li><span class="big">279 / 6 weeks</span><span class="label">people ramped onto — and fully off — a client account, coordinated across IT, recruiting, and operations</span></li>
-      <li><span class="big">Every account</span><span class="label">the same loop is the standard across the portfolio I manage, from 279 heads down to 3</span></li>
-      <li><span class="big">Reconstructable</span><span class="label">point-in-time headcount recoverable from the email trail — protecting billing periods and audits</span></li>
-      <li><span class="big">Validated in</span><span class="label">downstream systems (cost allocation, invoicing) consume confirmed counts, not self-reported ones</span></li>
-    </ul>
-
-    <h2>Artifacts</h2>
-    <ul>
-      <li><a href="operations-systems-playbook.html#data-dictionary">Synthetic roster data dictionary</a> — required fields, ownership, and validation states</li>
-      <li><a href="operations-systems-playbook.html#sop">Change-control SOP</a> — real-time update, validation, exception, and confirmation steps</li>
-    </ul>
-
-    <nav class="cs-nav" aria-label="Case studies">
-      <a href="invoicing.html">← Hours, Invoicing &amp; Margin Engine</a>
-      <a href="../#projects">Projects →</a>
-    </nav>
-  </div>
-</article>
-</main>
-
-<footer class="site">
-  <div class="wrap">
-    <span><a href="mailto:kaydenclark725@gmail.com">Email</a> · <a href="https://github.com/KaydenClark">GitHub</a> · <a href="../assets/Kayden-Clark-Resume-2026.pdf">Resume</a></span>
-  </div>
-</footer>
+<p>This work sample is no longer part of the public portfolio. <a href="../projects.html">View current projects</a>.</p>
+<script>location.replace("../projects.html");</script>
 </body>
 </html>

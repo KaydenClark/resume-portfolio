@@ -1,115 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-retired-route>
 <head>
 <meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta http-equiv="refresh" content="0; url=projects.html">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>OpenBrain — Personal RAG Memory System — Kayden Clark</title>
-<meta name="description" content="A personal RAG memory system: Supabase Postgres + pgvector, semantic search with dedup on capture, served to any AI client over a custom MCP server on serverless edge functions.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230e1116'/%3E%3Ctext x='50' y='68' font-size='52' text-anchor='middle' fill='%234cc38a' font-family='system-ui' font-weight='700'%3EKC%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="assets/style.css">
-<script src="assets/main.js" defer></script>
+<title>Project page retired — Kayden Clark</title>
+<link rel="canonical" href="projects.html">
 </head>
 <body>
-<a class="skip-link" href="#main">Skip to content</a>
-
-<header class="site">
-  <div class="wrap">
-    <a class="brand" href="./">Kayden<span> Clark</span></a>
-    <nav class="main" aria-label="Site">
-      <a href="./#systems">Systems</a>
-      <a href="./#projects" aria-current="page">Projects</a>
-      <a href="assets/Kayden-Clark-Resume-2026.pdf">Resume</a>
-      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">
-        <span class="theme-toggle-icon" aria-hidden="true"></span>
-        <span class="theme-toggle-text">Dark</span>
-      </button>
-    </nav>
-  </div>
-</header>
-
-<main id="main">
-<div class="cs-header">
-  <div class="wrap">
-    <p class="crumb"><a href="./#projects">← Projects</a></p>
-    <h1>OpenBrain — a personal RAG memory system</h1>
-    <ul class="fact-strip">
-      <li class="hot">Supabase Postgres + pgvector</li>
-      <li class="hot">Custom MCP server</li>
-      <li>Serverless edge functions</li>
-      <li>Private repo — architecture shared here</li>
-    </ul>
-  </div>
-</div>
-
-<article class="cs">
-  <div class="wrap">
-
-    <h2>What it is</h2>
-    <p>OpenBrain is my personal memory layer: any thought, note, or decision I want to keep gets captured into a Postgres database with a vector embedding, and any AI client I use — desktop, editor, CLI — can retrieve it semantically. The repo stays private because the data is my life; the architecture is the interesting part anyway.</p>
-
-    <h2>Architecture</h2>
-    <figure class="diagram">
-      <div class="diagram-frame">
-      <svg viewBox="0 0 760 240" role="img" aria-label="Diagram: AI clients connect over MCP to an edge function, which handles capture with deduplication into a pgvector-enabled Postgres database and semantic search back out.">
-        <defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z"/></marker></defs>
-        <g class="dg-node" data-title="AI clients" data-info="Claude Desktop, editors, CLIs — anything that speaks MCP. The point: memory is client-agnostic. Switch tools, keep the brain.">
-          <rect x="20" y="90" width="150" height="60"/>
-          <text x="95" y="115" text-anchor="middle">AI Clients</text>
-          <text x="95" y="132" text-anchor="middle" class="sub">anything with MCP</text>
-        </g>
-        <g class="dg-node" data-title="MCP server (edge function)" data-info="A custom MCP server deployed as a Supabase Edge Function — serverless, so there is no box to patch or keep warm. Access-key gated; embeddings generated server-side via OpenRouter.">
-          <rect x="240" y="90" width="190" height="60"/>
-          <text x="335" y="115" text-anchor="middle">MCP Server</text>
-          <text x="335" y="132" text-anchor="middle" class="sub">serverless edge function</text>
-        </g>
-        <g class="dg-node" data-title="Capture path" data-info="capture_thought: content is fingerprinted before insert — repeated captures upsert instead of duplicating. Dedup at the write, not cleanup later. Designing for misuse again: the most likely user error is saving the same thing twice.">
-          <rect x="510" y="20" width="230" height="56"/>
-          <text x="625" y="43" text-anchor="middle">Capture + dedup</text>
-          <text x="625" y="60" text-anchor="middle" class="sub">fingerprint → upsert</text>
-        </g>
-        <g class="dg-node" data-title="Postgres + pgvector" data-info="A thoughts table with content, embedding vector, JSONB metadata, and a content fingerprint. Row-level security on; service role only. Free tier, kept alive by daily use.">
-          <rect x="510" y="92" width="230" height="56"/>
-          <text x="625" y="115" text-anchor="middle">Postgres · pgvector</text>
-          <text x="625" y="132" text-anchor="middle" class="sub">thoughts + embeddings + RLS</text>
-        </g>
-        <g class="dg-node" data-title="Search path" data-info="search_thoughts calls a match function that ranks by vector similarity — 'what did I note about X?' works even when the words don't match. Semantic recall is the whole point.">
-          <rect x="510" y="164" width="230" height="56"/>
-          <text x="625" y="187" text-anchor="middle">Semantic search</text>
-          <text x="625" y="204" text-anchor="middle" class="sub">similarity-ranked recall</text>
-        </g>
-        <path class="dg-arrow" d="M170,120 H236"/>
-        <path class="dg-arrow" d="M430,110 C470,95 480,70 506,55"/>
-        <path class="dg-arrow" d="M430,120 H506"/>
-        <path class="dg-arrow" d="M430,130 C470,145 480,175 506,190"/>
-      </svg>
-      </div>
-      <p class="diagram-caption">Client-agnostic memory: capture with dedup on the way in, similarity-ranked recall on the way out, zero servers to maintain. Hover or tab through any node.</p>
-      <figcaption class="hint">Interactive: hover, tap, or keyboard-focus a node.</figcaption>
-    </figure>
-
-    <h2>Design decisions worth stealing</h2>
-    <ul>
-      <li><strong>Dedup at capture, not cleanup.</strong> Content is fingerprinted and upserted — the most likely misuse (saving the same thought twice) is handled structurally.</li>
-      <li><strong>Serverless on purpose.</strong> Edge functions mean no server to keep fresh, patch, or pay for while idle. The whole system runs on a free tier because it's designed to.</li>
-      <li><strong>MCP as the interface.</strong> One protocol, every client. The memory outlives any particular AI tool.</li>
-      <li><strong>Secrets stay server-side.</strong> Clients hold one access key; database credentials and model keys live in function secrets.</li>
-    </ul>
-
-    <h2>Why it's here</h2>
-    <div class="callout">Same instinct as the work systems: quarantine the inputs, make the failure modes structural, and design so the operator — in this case, me at 11pm with a half-formed idea — can't quietly corrupt the data. This is what I build for fun, which is probably the most honest signal on this site.</div>
-
-    <nav class="cs-nav" aria-label="Pages">
-      <a href="./#projects">← Projects</a>
-      <a href="./#systems">Systems I've Shipped →</a>
-    </nav>
-  </div>
-</article>
-</main>
-
-<footer class="site">
-  <div class="wrap">
-    <span><a href="mailto:kaydenclark725@gmail.com">Email</a> · <a href="https://github.com/KaydenClark">GitHub</a> · <a href="assets/Kayden-Clark-Resume-2026.pdf">Resume</a></span>
-  </div>
-</footer>
+<p>This project page is no longer part of the public portfolio. <a href="projects.html">View current projects</a>.</p>
+<script>location.replace("projects.html");</script>
 </body>
 </html>

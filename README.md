@@ -1,6 +1,15 @@
 # kayden clark — portfolio
 
-Static portfolio site. Published from `docs/` via GitHub Pages.
+Static multipage portfolio site. Published from `docs/` via GitHub Pages.
+
+Public routes:
+
+- `docs/index.html` — minimal identity landing page
+- `docs/resume.html` — complete resume content in one page
+- `docs/projects.html` — selected Dungeon Friends and Spotify projects
+
+The previous case-study and OpenBrain routes are retired redirects and are not
+part of the current public navigation.
 
 ## Structure
 

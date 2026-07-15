@@ -7,11 +7,8 @@
 
   var root = document.documentElement;
   var themeStorageKey = "theme";
+  var defaultTheme = "light";
   var explicitTheme = null;
-
-  function systemTheme() {
-    return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-  }
 
   try {
     explicitTheme = localStorage.getItem("theme");
@@ -22,17 +19,16 @@
   if (explicitTheme === "light" || explicitTheme === "dark") {
     root.setAttribute("data-theme", explicitTheme);
   } else {
-    root.setAttribute("data-theme", systemTheme());
+    root.setAttribute("data-theme", defaultTheme);
   }
 
   document.addEventListener("DOMContentLoaded", function () {
     /* ---------- light/dark theme ---------- */
     var themeToggle = document.getElementById("theme-toggle");
-    var themeMedia = window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null;
 
     function syncThemeControl() {
       if (!themeToggle) return;
-      var current = root.getAttribute("data-theme") || systemTheme();
+      var current = root.getAttribute("data-theme") || defaultTheme;
       var next = current === "dark" ? "light" : "dark";
       var label = themeToggle.querySelector(".theme-toggle-text");
       themeToggle.setAttribute("aria-label", "Switch to " + next + " theme");
@@ -51,14 +47,6 @@
         } catch (_error) {
           // The visual control still works when storage is unavailable.
         }
-        syncThemeControl();
-      });
-    }
-
-    if (themeMedia && typeof themeMedia.addEventListener === "function") {
-      themeMedia.addEventListener("change", function () {
-        if (explicitTheme) return;
-        root.setAttribute("data-theme", systemTheme());
         syncThemeControl();
       });
     }
