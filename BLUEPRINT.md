@@ -114,6 +114,7 @@ Design decisions recorded at bootstrap (owner-confirmed unless noted):
 | [S-005 - Light-Only Brand Template](specs/S-005-light-only-template/SPEC.md) | Lock the portfolio to the supplied light Brand Template and remove dark-theme overrides. | complete |
 | [S-006 - CV-First Royal Theme](specs/S-006-cv-first-royal-theme/SPEC.md) | Reframe the portfolio around the current CV with an accessible royal light/dark theme and refined rainbow geometry. | complete |
 | [S-007 - Multipage Public Surface](specs/S-007-multipage-public-surface/SPEC.md) | Split the feedback site into a minimal landing page, one complete resume page, and a focused projects page while retiring unfinished public work. | complete |
+| [S-008 - Workbench Projects Feature](specs/S-008-workbench-projects-feature/SPEC.md) | Feature LLM Workbench as the system behind the work above the unchanged personal-projects heading. | complete |
 <!-- spec-catalog:end -->
 
 ## Cross-Cutting Health

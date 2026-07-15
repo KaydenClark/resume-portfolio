@@ -694,7 +694,8 @@ footer.site a { color: var(--link); }
 
 .page-intro { padding: clamp(3rem, 8vw, 6rem) 0 2.4rem; }
 .page-intro .narrow { max-width: 54rem; }
-.page-intro h1 {
+.page-intro h1,
+.page-intro .projects-title {
   color: var(--text-strong);
   font-size: clamp(2.25rem, 6vw, 4.5rem);
   font-weight: 900;
@@ -703,7 +704,8 @@ footer.site a { color: var(--link); }
   margin: 0;
   max-width: 16ch;
 }
-.page-intro h1::after {
+.page-intro h1::after,
+.page-intro .projects-title::after {
   background: var(--rainbow);
   content: "";
   display: block;
@@ -715,7 +717,53 @@ footer.site a { color: var(--link); }
 .page-intro .tagline { margin-top: 1.35rem; max-width: 48rem; }
 .page-intro .hero-links { margin-top: 1.4rem; }
 
-.projects-intro { padding-bottom: 1.2rem; }
+.system-feature { padding: clamp(3rem, 7vw, 5rem) 0 0; }
+.system-feature-shell {
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  display: grid;
+  gap: clamp(1.5rem, 5vw, 4rem);
+  grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr);
+  overflow: hidden;
+  padding: clamp(1.6rem, 4vw, 2.7rem);
+  position: relative;
+}
+.system-feature-shell::before {
+  background: var(--rainbow);
+  content: "";
+  height: 3px;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.system-feature-heading { align-self: center; }
+.system-feature-heading h1 {
+  color: var(--text-strong);
+  font-size: clamp(2rem, 4.7vw, 3.45rem);
+  font-weight: 900;
+  letter-spacing: -.04em;
+  line-height: 1;
+  margin: 0;
+  max-width: 11ch;
+}
+.system-feature-copy {
+  border-left: 1px solid var(--border);
+  padding-left: clamp(1.5rem, 4vw, 3rem);
+}
+.system-feature-name {
+  color: var(--gold-ink);
+  font-size: .76rem;
+  font-weight: 850;
+  letter-spacing: .12em;
+  margin: 0 0 .65rem;
+  text-transform: uppercase;
+}
+.system-feature-copy > p:not(.system-feature-name) { color: var(--text-dim); line-height: 1.7; margin: 0 0 1.2rem; }
+.system-feature-copy .btn { display: inline-flex; }
+
+.projects-intro { padding-bottom: 1.2rem; padding-top: clamp(3.25rem, 7vw, 5rem); }
 .project-showcase { padding-top: 1.2rem; }
 .project-feature-grid { display: grid; gap: 1.1rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .project-feature {
@@ -844,6 +892,9 @@ th { color: var(--text-dim); }
   .meta-line { overflow-wrap: normal; }
   section { padding-top: 2.2rem; }
   .skill-groups, .project-list { grid-template-columns: 1fr; }
+  .system-feature-shell { grid-template-columns: 1fr; }
+  .system-feature-heading h1 { max-width: 12ch; }
+  .system-feature-copy { border-left: 0; border-top: 1px solid var(--border); padding-left: 0; padding-top: 1.25rem; }
   .project-feature-grid { grid-template-columns: 1fr; }
   .project-feature { min-height: 21rem; }
   .role-heading { display: block; }

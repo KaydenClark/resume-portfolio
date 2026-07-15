@@ -188,9 +188,14 @@ if (fs.existsSync(resumePath)) {
 
 if (fs.existsSync(projectsPath)) {
   const projects = fs.readFileSync(projectsPath, 'utf8');
-  for (const marker of ['Dungeon Friends', 'Spotify']) {
+  for (const marker of ['The system behind the work', 'LLM Workbench', 'Things I’m building because I want them to exist', 'Dungeon Friends', 'Spotify']) {
     if (!projects.includes(marker)) failures.push(`SURFACE docs/projects.html is missing ${marker}`);
   }
+  if (projects.indexOf('The system behind the work') > projects.indexOf('Things I’m building because I want them to exist')) {
+    failures.push('SURFACE docs/projects.html places LLM Workbench after the personal-projects title');
+  }
+  const numberedProjectCards = (projects.match(/class="project-feature project-feature-/g) ?? []).length;
+  if (numberedProjectCards !== 2) failures.push(`SURFACE docs/projects.html has ${numberedProjectCards} numbered project cards, expected 2`);
   for (const retiredMarker of ['OpenBrain', 'Campaign Reporting', 'case-studies/']) {
     if (projects.includes(retiredMarker)) failures.push(`SURFACE docs/projects.html still exposes ${retiredMarker}`);
   }
