@@ -2,9 +2,9 @@
 
 > Generated from LLM Workbench v2.3.
 
-**Last reviewed:** 2026-07-13
+**Last reviewed:** 2026-07-15
 **Status:** active
-**Source root:** `E:\GPT_OS\Projects\resume-portfolio`
+**Source root:** `/Users/kayden/GPT_OS/Projects/resume-portfolio`
 **Remote:** `github.com/KaydenClark/resume-portfolio`
 
 ## Product Map
@@ -34,7 +34,7 @@ Core promise:
   navigation, reduced-motion support, no gimmicks.
 - **Anonymized but real:** real numbers and real architectures; client names,
   employee names, and raw workbooks never publish.
-- **Zero maintenance burden:** static files on GitHub Pages; nothing to keep
+- **Zero maintenance burden:** static files on Vercel; nothing to keep
   fresh, patch, or pay for. Live-data features are explicitly deferred.
 
 ## Cross-Cutting Architecture And Invariants
@@ -45,7 +45,7 @@ Core promise:
 | Product surface | Multi-page site: index + 3 case studies + OpenBrain writeup | one shared stylesheet and script; progressive enhancement, works with JS off |
 | Data/storage | None (static) | live widgets/backends are out of scope for v1 by owner decision |
 | Testing | `node tools/verify-site.mjs` (leak scan, link check, placeholder check) | must pass before any push |
-| Deployment | GitHub Pages from `main` branch `/docs` folder | repo is public; the whitelist `.gitignore` is the publish boundary |
+| Deployment | Vercel project `kayden-clark`, serving the static `docs/` output at `kayden-clark.vercel.app` | production deployment is owner-authorized; repo is public and the whitelist `.gitignore` is the publish boundary |
 
 Rules that span multiple capabilities:
 
@@ -107,7 +107,7 @@ Design decisions recorded at bootstrap (owner-confirmed unless noted):
 <!-- spec-catalog:start -->
 | Spec | Description | Status |
 |---|---|---|
-| [S-001 - Static Portfolio Site](specs/S-001-static-portfolio-site/SPEC.md) | Recruiter-facing static site with three case studies, shipped on GitHub Pages. | active |
+| [S-001 - Static Portfolio Site](specs/S-001-static-portfolio-site/SPEC.md) | Original static portfolio capability and retired GitHub Pages publication plan, superseded by the Vercel-backed public surface in S-007. | superseded |
 | [S-002 - Case Study Artifacts](specs/S-002-case-study-artifacts/SPEC.md) | Anonymized, synthetic-data artifacts and screenshots embedded in the case pages. | active |
 | [S-003 - GitHub Repo Hygiene](specs/S-003-github-repo-hygiene/SPEC.md) | Archive-status READMEs on linked repos and an optional sanitized OpenBrain template. | planned |
 | [S-004 - Brand Template Alignment](specs/S-004-brand-template-alignment/SPEC.md) | Apply the supplied SLK brand template to the static portfolio without changing its verified content architecture. | complete |

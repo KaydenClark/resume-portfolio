@@ -2,9 +2,9 @@
 
 > Generated from LLM Workbench v2.3. See Upgrading The Harness below.
 
-**Last reviewed:** 2026-07-13
+**Last reviewed:** 2026-07-15
 **Runtime owner:** Kayden (owner); agents operate under `AGENTS.md`
-**Environment:** local (Windows, `E:\GPT_OS\Projects\resume-portfolio`) → GitHub Pages (production)
+**Environment:** local (`/Users/kayden/GPT_OS/Projects/resume-portfolio`) → Vercel project `kayden-clark` (production)
 
 This file explains how to operate, verify, recover, and evaluate the project. It
 should be boring, exact, and executable.
@@ -14,14 +14,16 @@ should be boring, exact, and executable.
 Required tools:
 
 - Node.js 18+ (verified on v22) - runs the verifier and spec tooling
-- Git - version control and deploy (push to `main` publishes)
+- Git - version control
+- Vercel CLI - deterministic project linking, production deploy, and inspection
 - Python 3 (optional) - local preview server
 - Any modern browser - manual render checks
 
 Required accounts/services:
 
 - GitHub account with access to `github.com/KaydenClark/resume-portfolio`
-- GitHub Pages enabled: Settings → Pages → Deploy from branch → `main` / `docs/`
+- Vercel account with access to the `kaydenclark725s-projects/kayden-clark`
+  project
 
 Required local files:
 
@@ -42,10 +44,10 @@ Expected result:
 
 ## Run Locally
 
-Option A - open directly: double-click `docs\index.html` (everything works
+Option A - open directly: open `docs/index.html` (everything works
 from the filesystem, including theme toggle and diagrams).
 
-Option B - local server (matches Pages path behavior):
+Option B - local server (matches the static Vercel path behavior):
 
 ```bash
 cd docs
@@ -121,26 +123,26 @@ No databases, seeds, or migrations. One data safety rule:
 
 ## Deployment Or Startup
 
-Deploy = push to `main`. GitHub Pages serves `docs/` from `main` directly.
+Production is the Vercel project `kayden-clark` with canonical alias
+`https://kayden-clark.vercel.app`. Git push and production deploy are separate
+owner-authorized actions.
 
-First-time setup (owner, PowerShell):
+Deterministic local setup and deploy:
 
-```powershell
-cd E:\GPT_OS\Projects\resume-portfolio
-Remove-Item -Recurse -Force .git   # stale empty .git dir from before init
-git init -b main
-git add .
-git status                          # gate: ONLY allowlisted paths staged
-git commit -m "Portfolio site v1 + LLM Workbench v2.3 harness"
-git remote add origin https://github.com/KaydenClark/resume-portfolio.git
-git push -u origin main
+```bash
+node tools/verify-site.mjs
+node tools/spec-workbench.mjs doctor
+npx vercel link --yes --project kayden-clark --scope kaydenclark725s-projects
+npx vercel --prod --yes
+npx vercel inspect https://kayden-clark.vercel.app
 ```
 
-Then: GitHub → Settings → Pages → Deploy from branch → `main` / `docs/`.
+The link command creates machine-local `.vercel/` metadata. It is not part of
+the repository and must never be committed.
 
 Expected healthy state:
 
-- site reachable at the Pages URL within ~1 minute of push;
+- `https://kayden-clark.vercel.app` returns 200 and Vercel reports Ready;
 - every nav link, case-study link, and the resume PDF resolve on the live URL.
 
 ## Version-Control Procedures
@@ -181,7 +183,8 @@ If a downstream lesson should flow back to the harness, log it in
 | verify-site LEAK failure | client-identifying term in a publishable file | the reported file:line | reword to a generic descriptor; never suppress the check |
 | verify-site LINK failure | renamed/moved file or typo'd path | the reported href | fix the path; re-run |
 | doctor reports drift | Taskboard/catalog region out of sync with specs | `node tools/spec-workbench.mjs render` | render regenerates projections; commit the result |
-| Pages shows 404 | Pages not set to `main`/`docs`, or push didn't include `docs/` | repo Settings → Pages; `git ls-files docs` | fix setting or commit the missing files |
+| Vercel alias shows 404 or stale content | wrong Vercel project linked, production deploy missing, or alias points at an older project | `npx vercel inspect https://kayden-clark.vercel.app`; verify linked project is `kayden-clark` | relink explicitly, deploy only with owner authorization, then inspect the canonical alias |
+| GitHub repository homepage is stale | repository metadata still points at an older Vercel alias | `gh repo view KaydenClark/resume-portfolio --json homepageUrl` | owner updates the homepage to `https://kayden-clark.vercel.app` |
 | Unexpected file staged | `.gitignore` allowlist widened or bypassed | `git status`, `.gitignore` | unstage; restore the allowlist; ask owner before changing it |
 
 ## Recovery And Rollback
@@ -193,9 +196,9 @@ If a change fails:
 3. Rerun the failing verification command.
 4. Update the owning spec with the result and remaining gap, then render.
 
-A bad deploy is rolled back with `git revert` of the offending commit and a
-push. Do not delete data, reset databases, rewrite history, or rotate secrets
-unless the owner explicitly approves that action.
+A bad production deploy is rolled back through Vercel or by deploying a
+verified prior commit, both with owner authorization. Do not delete data,
+rewrite history, or rotate secrets unless the owner explicitly approves it.
 
 ## Operational Proof
 

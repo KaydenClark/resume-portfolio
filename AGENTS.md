@@ -115,8 +115,9 @@ evidence; never duplicate completed proof in the Taskboard.
 - Default branch: `main`. This is a solo-owner repo: direct commits to `main`
   are acceptable for doc and spec updates; use a branch per spec for site
   changes when work spans sessions.
-- `git push` always requires owner action or explicit owner approval
-  (GitHub Pages publishes straight from `main`, so a push is a deploy).
+- `git push` always requires owner action or explicit owner approval. Vercel
+  production deployment also requires explicit owner authorization; do not
+  assume a push published the site without verifying the live deployment.
 - Before any commit: run the full verification suite and check `git status`
   shows only allowlisted paths staged.
 - Never force-push shared history. Bump nothing to "live" until behavior and

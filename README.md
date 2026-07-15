@@ -1,6 +1,7 @@
 # kayden clark — portfolio
 
-Static multipage portfolio site. Published from `docs/` via GitHub Pages.
+Static multipage portfolio site. Published from `docs/` through Vercel at
+[`kayden-clark.vercel.app`](https://kayden-clark.vercel.app).
 
 Public routes:
 
@@ -26,7 +27,8 @@ cd docs && python -m http.server 8000
 
 ## Deploy
 
-GitHub Pages → Settings → Pages → Deploy from branch → `main` / `docs/`.
+Production is the Vercel project `kayden-clark`. Deployment is owner-controlled;
+see `RUNBOOK.md` for the verified link, deploy, and inspection commands.
 
 ## Editing rules
 
