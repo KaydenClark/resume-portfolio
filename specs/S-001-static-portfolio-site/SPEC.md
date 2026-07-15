@@ -10,7 +10,7 @@
 **Updated:** 2026-07-13
 **Catalog description:** Recruiter-facing static site with three case studies, shipped on GitHub Pages.
 **Blockers:** none
-**Latest event:** Core site built and verified; harness bootstrapped around it.
+**Latest event:** Verified draft deployed to Vercel for feedback; GitHub Pages owner gate remains.
 **Next gate:** Owner runs first-time git setup and enables GitHub Pages (TK-002).
 
 ## Outcome
@@ -32,8 +32,9 @@ a phone, a skim, and a skeptical engineer clicking every link.
   the resume PDF (verified 2026-07-13: leak scan clean, all internal links
   resolve, HTML parses with no unclosed tags, external GitHub links fetched
   live).
-- Not yet under version control (stale empty `.git` dir blocks sandbox init;
-  owner action required) and not yet deployed.
+- Repository is clean on `main` at `4ef63f7`; an interim production draft is
+  live at `https://kayden-clark.vercel.app` for feedback. The planned GitHub
+  Pages deployment remains an owner gate.
 
 ## Desired Behavior
 
@@ -98,6 +99,7 @@ node tools/spec-workbench.mjs doctor
 | Date | Ticket | Event | Verification | Docs | Remaining gap |
 |---|---|---|---|---|---|
 | 2026-07-13 | TK-001 | Core site built (5 HTML pages, shared CSS/JS, resume PDF); Genesis bootstrap ran against this scaffold as the Phase 3 artifact | verify-site passed (leak scan / links / placeholders); HTML parse clean; LLM_Workbench and DnDWebApp links fetched live | Blueprint, Agents, Runbook, Taskboard created and stamped v2.3 | TK-002 deploy + TK-003 live smoke test |
+| 2026-07-13 | ad-hoc | Interim feedback draft deployed to Vercel production at `https://kayden-clark.vercel.app` (deployment `dpl_4SnjGanW2aRYiqwohNqL9kLxvsaL`) | Vercel READY; all 6 HTML routes, CSS, JS, and resume PDF returned 200; desktop and 390px screenshots visually checked; no runtime errors in the first hour | Spec updated; no Taskboard change because TK-002 GitHub Pages gate remains open | Owner feedback and planned GitHub Pages deployment remain |
 
 ## Completion Result
 
