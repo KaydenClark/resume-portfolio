@@ -1,0 +1,5 @@
+Synthetic Employee ID,Synthetic Employee Name,Role,Manager,Cost Center,Roster Status Check,Manager Assignment Check,Cost Center Check,Overall Validation,Data Note
+SYN-1001,Alex Rivera,Operations Coordinator,Jordan Lee,CC-210,Pass,Pass,Pass,Ready,Synthetic sample data only
+SYN-1002,Morgan Chen,Program Analyst,Jordan Lee,CC-210,Pass,Pass,Pass,Ready,Synthetic sample data only
+SYN-1003,Taylor Brooks,Field Specialist,Casey Morgan,CC-315,Pass,Pass,Pass,Ready,Synthetic sample data only
+SYN-1004,Riley Patel,Support Lead,Casey Morgan,CC-315,Pass,Pass,Pass,Ready,Synthetic sample data only

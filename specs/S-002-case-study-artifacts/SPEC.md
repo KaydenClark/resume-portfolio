@@ -6,12 +6,12 @@
 **Spec ID:** S-002
 **Status:** active
 **Priority:** 1
-**Owner:** Kayden
-**Updated:** 2026-07-13
+**Owner:** Terra
+**Updated:** 2026-07-15
 **Catalog description:** Anonymized, synthetic-data artifacts and screenshots embedded in the case pages.
 **Blockers:** none
-**Latest event:** Spec captured at Genesis; source workbooks identified in real-examples/.
-**Next gate:** Produce the anonymized roster template (TK-001).
+**Latest event:** TK-002 closed with proof.
+**Next gate:** Complete TK-003.
 
 ## Outcome
 
@@ -63,8 +63,8 @@ link. Evidence is the difference between a claim and a case study.
 
 | Ticket | Slice | Status | Blockers | Proof |
 |---|---|---|---|---|
-| TK-001 | Create anonymized roster template with synthetic employees (triple-validation structure visible) | ready | none | pending |
-| TK-002 | Screenshot set from anonymized workbooks: control panel, QA checks, rollup views, GPM heatmap; synthetic data only | ready | none | pending |
+| TK-001 | Create anonymized roster template with synthetic employees (triple-validation structure visible) | done | none | Red: verifier failed for missing roster template; green: verify-site passed with CSV contract. |
+| TK-002 | Screenshot set from anonymized workbooks: control panel, QA checks, rollup views, GPM heatmap; synthetic data only | done | none | Red: verifier failed for four missing screenshot assets; green: all four synthetic SVG screenshots passed XML validation and verify-site. |
 | TK-003 | Add `docs/artifacts/`, link artifacts + screenshots from all three case pages, re-run full verification | ready | TK-001, TK-002 | pending |
 
 ## Acceptance Criteria
@@ -97,6 +97,8 @@ node tools/spec-workbench.mjs doctor
 
 | Date | Ticket | Event | Verification | Docs | Remaining gap |
 |---|---|---|---|---|---|
+| 2026-07-15 | TK-001 | Ticket closed | Red: verifier failed for missing roster template; green: verify-site passed with CSV contract. | SPEC evidence updated; TASKBOARD rendered. | TK-002 screenshot set and TK-003 case-page links remain. |
+| 2026-07-15 | TK-002 | Ticket closed | Red: verifier failed for four missing screenshot assets; green: all four synthetic SVG screenshots passed XML validation and verify-site. | SPEC evidence updated; TASKBOARD rendered. | TK-003 must link the completed artifacts from the future public surface; owner must eyeball artifacts before a publishing commit. |
 
 ## Completion Result
 

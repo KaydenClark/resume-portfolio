@@ -6,5 +6,5 @@ specification for requirements, decisions, and proof; then run the renderer.
 <!-- hot-specs:start -->
 | Spec | Current slice | Owner | Blocker | Latest meaningful event | Next gate |
 |---|---|---|---|---|---|
-| [S-002](specs/S-002-case-study-artifacts/SPEC.md) | TK-001: Create anonymized roster template with synthetic employees (triple-validation structure visible) (ready) | Kayden | none | Spec captured at Genesis; source workbooks identified in real-examples/. | Produce the anonymized roster template (TK-001). |
+| [S-002](specs/S-002-case-study-artifacts/SPEC.md) | TK-003: Add `docs/artifacts/`, link artifacts + screenshots from all three case pages, re-run full verification (ready) | Terra | TK-001, TK-002 | TK-002 closed with proof. | Complete TK-003. |
 <!-- hot-specs:end -->

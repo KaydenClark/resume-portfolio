@@ -8,6 +8,7 @@
 //   3. PLACEHOLDERS- no [ALL_CAPS_BRACKET] template tokens left in control docs or specs
 //   4. BRAND SYSTEM- required local assets and template-aligned primitives are present
 //   5. PUBLIC SURFACE - landing, resume, projects, and retired routes stay separated
+//   6. ARTIFACTS     - required synthetic case-study evidence is present
 //
 // Why this exists (design-for-misuse): the most likely human error in this repo
 // is pasting real client data into a publishable file. This makes that error
@@ -45,7 +46,7 @@ const CONDITIONAL = [
   { re: /\bcadence\b/i, allow: /monthly cadence|validation cadence|on a .{0,12}cadence/i },
 ];
 const publishable = [
-  ...walk(path.join(root, 'docs'), ['.html', '.css', '.js', '.md', '.svg', '.txt']),
+  ...walk(path.join(root, 'docs'), ['.html', '.css', '.js', '.md', '.svg', '.txt', '.csv']),
   ...walk(path.join(root, 'specs'), ['.md']),
   ...['AGENTS.md', 'BLUEPRINT.md', 'TASKBOARD.md', 'RUNBOOK.md', 'README.md', 'HARNESS_FEEDBACK.md']
     .map((f) => path.join(root, f)).filter(fs.existsSync),
@@ -226,6 +227,37 @@ for (const retiredPath of [
   if (!retired.includes('data-retired-route') || !retired.includes('url=../projects.html') && !retired.includes('url=projects.html')) {
     failures.push(`SURFACE ${rel(retiredPath)} is not a retired redirect`);
   }
+}
+
+/* ---------- gate 6: roster-template contract ---------- */
+const rosterTemplatePath = path.join(root, 'docs', 'artifacts', 'synthetic-roster-template.csv');
+if (!fs.existsSync(rosterTemplatePath)) {
+  failures.push('ARTIFACT docs/artifacts/synthetic-roster-template.csv is missing');
+} else {
+  const rosterRows = fs.readFileSync(rosterTemplatePath, 'utf8').trim().split('\n');
+  const requiredColumns = [
+    'Synthetic Employee ID',
+    'Synthetic Employee Name',
+    'Roster Status Check',
+    'Manager Assignment Check',
+    'Cost Center Check',
+    'Overall Validation',
+  ];
+  for (const column of requiredColumns) {
+    if (!rosterRows[0]?.includes(column)) failures.push(`ARTIFACT roster template is missing ${column}`);
+  }
+  if (rosterRows.length < 4) failures.push('ARTIFACT roster template needs at least three synthetic employee rows');
+}
+
+/* ---------- gate 7: synthetic screenshot set ---------- */
+for (const screenshot of [
+  'synthetic-control-panel.svg',
+  'synthetic-qa-checks.svg',
+  'synthetic-rollup-view.svg',
+  'synthetic-gpm-heatmap.svg',
+]) {
+  const target = path.join(root, 'docs', 'artifacts', screenshot);
+  if (!fs.existsSync(target)) failures.push(`ARTIFACT docs/artifacts/${screenshot} is missing`);
 }
 
 /* ---------- report ---------- */
