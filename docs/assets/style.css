@@ -752,4 +752,46 @@ th { color: var(--text-dim); }
   #evidence-kit .section-sub { margin-bottom: 1rem; }
   #evidence-kit .btn { margin-left: 0; }
   table { display: block; overflow-x: auto; }
+  .rollup-field select { min-width: 0; width: 100%; }
+  .rollup-field { flex: 1 1 100%; }
 }
+
+/* ---------- interactive metrics roll-up dashboard (S-007) ---------- */
+.rollup { margin: 1.25rem 0 1.75rem; }
+.rollup-controls {
+  display: flex; flex-wrap: wrap; gap: .75rem 1rem; align-items: flex-end;
+  padding: .85rem 1rem; margin-bottom: .85rem;
+  background: var(--bg-raised); border: 1px solid var(--border); border-radius: var(--radius);
+}
+/* Keep the empty controls box out of the no-JS view; author display must not beat [hidden]. */
+.rollup-controls[hidden] { display: none; }
+.rollup-field { display: flex; flex-direction: column; gap: .3rem; font-size: .72rem; text-transform: uppercase; letter-spacing: .04em; color: var(--text-dim); font-weight: 700; }
+.rollup-field select {
+  font: inherit; font-size: .9rem; font-weight: 500; text-transform: none; letter-spacing: 0;
+  color: var(--text); background: var(--bg-inset); border: 1px solid var(--border);
+  border-radius: 9px; padding: .42rem .55rem; min-width: 14rem;
+}
+.rollup-seg { display: inline-flex; align-self: flex-end; border: 1px solid var(--border); border-radius: 9px; overflow: hidden; }
+.rollup-seg button {
+  font: inherit; font-size: .85rem; font-weight: 600; color: var(--text-dim);
+  background: var(--bg-inset); border: 0; padding: .46rem .95rem; cursor: pointer;
+}
+.rollup-seg button + button { border-left: 1px solid var(--border); }
+.rollup-seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-contrast); }
+.rollup-status { font-size: .8rem; color: var(--text-dim); margin: 0 0 .5rem; min-height: 1.1em; }
+
+.datagrid { margin: 0; }
+.datagrid-scroll { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--radius); }
+.datagrid table { display: table; margin: 0; overflow: visible; font-variant-numeric: tabular-nums; }
+.datagrid caption { text-align: left; padding: .7rem .85rem; font-size: .82rem; color: var(--text-dim); background: var(--bg-inset); border-bottom: 1px solid var(--border); }
+.datagrid th, .datagrid td { padding: .5rem .7rem; text-align: right; white-space: nowrap; border-bottom: 1px solid var(--border); }
+.datagrid thead th { background: var(--bg-inset); color: var(--text-strong); font-size: .8rem; position: sticky; top: 0; }
+.datagrid thead th:first-child { text-align: left; position: sticky; left: 0; z-index: 2; }
+.datagrid tbody th[scope="row"] { text-align: left; color: var(--text); font-weight: 600; position: sticky; left: 0; background: var(--bg-raised); z-index: 1; }
+.datagrid tbody tr:nth-child(even) th[scope="row"], .datagrid tbody tr:nth-child(even) td { background: var(--bg-inset); }
+.datagrid tbody tr:last-child th, .datagrid tbody tr:last-child td { border-bottom: 0; }
+.rollup-trend { font-weight: 700; font-size: .82rem; }
+.rollup-trend.is-good { color: #2f8f4e; }
+.rollup-trend.is-bad { color: var(--warn); }
+.rollup-trend.is-flat { color: var(--text-dim); }
+[data-theme="dark"] .rollup-trend.is-good { color: #5cbe7c; }
