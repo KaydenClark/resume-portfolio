@@ -8,37 +8,42 @@
 **Priority:** 1
 **Owner:** Captain-Luna-Engineer
 **Updated:** 2026-07-17
-**Catalog description:** Anonymized, synthetic-data artifacts and screenshots embedded in the case pages.
-**Blockers:** Owner decision: S-007 retires every case-study route; do not re-expose artifacts without approving a new public surface and completing the required eyeball review.
+**Catalog description:** Anonymized synthetic artifacts prepared under `docs/artifacts/`; public-surface linking remains owner-gated.
+**Blockers:** Owner decision: keep the five deployable artifacts unlinked but directly reachable if deployed; explicitly approve their removal from `docs/`; or authorize a new public-surface spec, link mapping, and pre-publication eyeball review.
 **Latest event:** TK-003 blocked: its required case-page links conflict with the S-007 retired-route contract.
-**Next gate:** Owner decides whether to keep artifacts offline or authorize a new reviewed public-surface spec.
+**Next gate:** Owner chooses unlinked deployment, approved removal, or a new reviewed linking surface.
 
 ## Outcome
 
-Each case-study page's "Artifacts" section is backed by real downloadable or
-viewable evidence: anonymized template workbooks, synthetic-data screenshots
-(control panel, QA checks, GPM heatmap, rollup views), and the design doc -
-so claims are verifiable, not just asserted.
+The five synthetic files under `docs/artifacts/` have an explicit owner-approved
+publication disposition. Any future linking surface preserves the four retired
+case-study redirects, maps reviewed evidence deliberately, and makes claims
+verifiable without exposing identifying data.
 
 ## Why It Matters
 
-"Artifacts" sections currently name items that are not yet linked. A skeptical
-reviewer clicking an artifact that isn't there is the same failure as a dead
-link. Evidence is the difference between a claim and a case study.
+The four current case-study routes are redirects and contain no artifact
+sections. The five files under `docs/artifacts/` are already part of the
+deployable tree and would be directly reachable by URL if this branch were
+deployed, even though no current page links to them.
 
 ## Current Verified State
 
 - Five synthetic publishable artifacts now exist in `docs/artifacts/`: the
   roster CSV plus control-panel, QA, rollup, and GPM SVG evidence.
-- Every legacy case-study page is an S-007 retired redirect to `projects.html`.
-  No current public route can link these artifacts without an owner-approved
-  replacement public-surface decision.
+- All four legacy case-study routes are S-007 retired redirects to
+  `projects.html`; they have no artifact sections.
+- Because `docs/` is the deployable root, the artifact files remain directly
+  reachable by URL in any deployment containing them, whether or not a page
+  links to them.
 
 ## Desired Behavior
 
-- `docs/artifacts/` holds publishable files, but no retired case-study route
-  may expose them. A future owner-approved public-surface spec must choose the
-  reviewed destination before links are added.
+- The owner chooses one explicit disposition for `docs/artifacts/`: keep the
+  files deployed but unlinked; separately approve removing them from the
+  deployable tree; or authorize a new public-surface spec that names the
+  destination and artifact-to-page link mapping.
+- No retired case-study redirect may be repurposed to expose artifacts.
 - Screenshots use synthetic data only and pass the leak scan.
 - The roster case study gets a purpose-built anonymized template with synthetic
   employees demonstrating the triple-validation structure.
@@ -58,7 +63,9 @@ link. Evidence is the difference between a claim and a case study.
 
 ## Dependencies And Blockers
 
-- none (S-001 deploy is not a blocker; artifacts can land before or after).
+- S-007's retired-route contract blocks the original case-page linking design.
+- Owner disposition and the required artifact eyeball review block publication
+  or linking; S-001 deployment is not otherwise a dependency.
 
 ## Vertical Implementation Slices
 
@@ -66,21 +73,24 @@ link. Evidence is the difference between a claim and a case study.
 |---|---|---|---|---|
 | TK-001 | Create anonymized roster template with synthetic employees (triple-validation structure visible) | done | none | Red: verifier failed for missing roster template; green: verify-site passed with CSV contract. |
 | TK-002 | Screenshot set from anonymized workbooks: control panel, QA checks, rollup views, GPM heatmap; synthetic data only | done | none | Red: verifier failed for four missing screenshot assets; green: all four synthetic SVG screenshots passed XML validation and verify-site. |
-| TK-003 | Add `docs/artifacts/`, link artifacts + screenshots from all three case pages, re-run full verification | blocked | Owner decision: this would revive S-007-retired case-study routes and needs the required artifact eyeball review | pending |
+| TK-003 | Resolve the five existing artifacts across all four retired case-study routes, then implement the owner-approved disposition and re-run full verification | blocked | Owner chooses unlinked deployment, approved removal, or a new reviewed linking surface; artifact eyeball review remains required before publication | pending |
 
 ## Acceptance Criteria
 
-- [ ] Every "Artifacts" bullet on every case page is a working link or is
-      removed.
-- [ ] `node tools/verify-site.mjs` passes with the new files in scope.
+- [ ] Owner selects one disposition: keep the five files deployed but unlinked;
+      approve removing them from `docs/`; or authorize a new public linking
+      surface and exact artifact-to-page mapping.
+- [ ] The selected disposition preserves all four S-007 retired redirects.
+- [ ] `node tools/verify-site.mjs` passes with the selected file and link scope.
 - [ ] Owner eyeballs each screenshot and artifact for identifying data before
-      the publishing commit (mechanical scan + human gate).
+      any deployment containing them (mechanical scan + human gate).
 
 ## Testing Seams
 
 - Leak scan covers `docs/` recursively, including new artifact filenames and
   any text-bearing formats.
-- Link check proves every artifact href resolves.
+- The link check proves any future owner-approved artifact href resolves; the
+  current retired routes intentionally contain no artifact hrefs.
 
 ## Verification Procedure
 
@@ -100,7 +110,8 @@ node tools/spec-workbench.mjs doctor
 |---|---|---|---|---|---|
 | 2026-07-15 | TK-001 | Ticket closed | Red: verifier failed for missing roster template; green: verify-site passed with CSV contract. | SPEC evidence updated; TASKBOARD rendered. | TK-002 screenshot set and TK-003 case-page links remain. |
 | 2026-07-15 | TK-002 | Ticket closed | Red: verifier failed for four missing screenshot assets; green: all four synthetic SVG screenshots passed XML validation and verify-site. | SPEC evidence updated; TASKBOARD rendered. | TK-003 must link the completed artifacts from the future public surface; owner must eyeball artifacts before a publishing commit. |
-| 2026-07-17 | TK-003 | Ticket blocked | Baseline `node tools/verify-site.mjs` passed (30 publishable files); route inspection confirmed all four legacy case-study pages are S-007 retired redirects. No link change made because it would violate the verified public-surface contract. | SPEC blocker updated; TASKBOARD must be rendered. | Owner must choose a new public-surface spec or keep the synthetic artifacts offline, then eyeball any artifact before publication. |
+| 2026-07-17 | TK-003 | Ticket blocked | Baseline `node tools/verify-site.mjs` passed (30 publishable files); route inspection confirmed all four legacy case-study pages are S-007 retired redirects. No link change made because it would violate the verified public-surface contract. | SPEC blocker updated; TASKBOARD and catalog rendered. | Owner must choose unlinked deployment, approved removal, or a new reviewed linking surface, then eyeball artifacts before any deployment containing them. |
+| 2026-07-17 | TK-003 | Evidence correction after audit | The original 2026-07-15 TK-002 evidence row remains verbatim. Current inspection clarifies that five files already exist in deployable `docs/artifacts/`, all four case-study routes are redirects with no artifact sections, and direct artifact URLs would resolve if this branch were deployed. | SPEC contradictions corrected; generated TASKBOARD and catalog refreshed. | Owner disposition and pre-publication eyeball review remain. |
 
 ## Completion Result
 

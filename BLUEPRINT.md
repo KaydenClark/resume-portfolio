@@ -108,7 +108,7 @@ Design decisions recorded at bootstrap (owner-confirmed unless noted):
 | Spec | Description | Status |
 |---|---|---|
 | [S-001 - Static Portfolio Site](specs/S-001-static-portfolio-site/SPEC.md) | Original static portfolio capability and retired GitHub Pages publication plan, superseded by the Vercel-backed public surface in S-007. | superseded |
-| [S-002 - Case Study Artifacts](specs/S-002-case-study-artifacts/SPEC.md) | Anonymized, synthetic-data artifacts and screenshots embedded in the case pages. | blocked |
+| [S-002 - Case Study Artifacts](specs/S-002-case-study-artifacts/SPEC.md) | Anonymized synthetic artifacts prepared under `docs/artifacts/`; public-surface linking remains owner-gated. | blocked |
 | [S-003 - GitHub Repo Hygiene](specs/S-003-github-repo-hygiene/SPEC.md) | Archive-status READMEs on linked repos and an optional sanitized OpenBrain template. | planned |
 | [S-004 - Brand Template Alignment](specs/S-004-brand-template-alignment/SPEC.md) | Apply the supplied SLK brand template to the static portfolio without changing its verified content architecture. | complete |
 | [S-005 - Light-Only Brand Template](specs/S-005-light-only-template/SPEC.md) | Lock the portfolio to the supplied light Brand Template and remove dark-theme overrides. | complete |
