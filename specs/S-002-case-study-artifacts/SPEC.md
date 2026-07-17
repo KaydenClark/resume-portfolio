@@ -28,16 +28,17 @@ link. Evidence is the difference between a claim and a case study.
 
 ## Current Verified State
 
-- Anonymized source set exists in `real-examples/Portfolio/` (design doc,
-  hours-invoicing model, allocation calculator, Erlang planner, WBR deck, SOP)
-  - built for exactly this purpose, but not yet copied into `docs/`, not yet
-  screenshot, and the roster template with synthetic employees does not exist
-  (the real roster workbook must never publish).
-- Case pages list artifacts as text only; nothing is linked yet.
+- Five synthetic publishable artifacts now exist in `docs/artifacts/`: the
+  roster CSV plus control-panel, QA, rollup, and GPM SVG evidence.
+- Every legacy case-study page is an S-007 retired redirect to `projects.html`.
+  No current public route can link these artifacts without an owner-approved
+  replacement public-surface decision.
 
 ## Desired Behavior
 
-- `docs/artifacts/` holds the publishable files; each case page links its own.
+- `docs/artifacts/` holds publishable files, but no retired case-study route
+  may expose them. A future owner-approved public-surface spec must choose the
+  reviewed destination before links are added.
 - Screenshots use synthetic data only and pass the leak scan.
 - The roster case study gets a purpose-built anonymized template with synthetic
   employees demonstrating the triple-validation structure.
@@ -90,8 +91,8 @@ node tools/spec-workbench.mjs doctor
 
 ## Documentation Impact
 
-- Case pages' Artifacts sections updated in place; no control-doc changes
-  expected beyond spec evidence.
+- This blocked checkpoint updates the SPEC, generated TASKBOARD, and catalog;
+  no retired public page was changed.
 
 ## Append-Only Evidence And Execution Log
 
