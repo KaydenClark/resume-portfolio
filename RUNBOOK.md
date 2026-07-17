@@ -2,7 +2,7 @@
 
 > Generated from LLM Workbench v2.3. See Upgrading The Harness below.
 
-**Last reviewed:** 2026-07-15
+**Last reviewed:** 2026-07-17
 **Runtime owner:** Kayden (owner); agents operate under `AGENTS.md`
 **Environment:** local (`/Users/kayden/GPT_OS/Projects/resume-portfolio`) → Vercel project `kayden-clark` (production)
 
@@ -13,7 +13,7 @@ should be boring, exact, and executable.
 
 Required tools:
 
-- Node.js 18+ (verified on v22) - runs the verifier and spec tooling
+- Node.js 18+ (verified on v26) - runs the verifier and spec tooling
 - Git - version control
 - Vercel CLI - deterministic project linking, production deploy, and inspection
 - Python 3 (optional) - local preview server
@@ -45,7 +45,7 @@ Expected result:
 ## Run Locally
 
 Option A - open directly: open `docs/index.html` (everything works
-from the filesystem, including theme toggle and diagrams).
+from the filesystem, including the theme toggle and internal navigation).
 
 Option B - local server (matches the static Vercel path behavior):
 
@@ -60,9 +60,9 @@ Open:
 
 Expected result:
 
-- Index page renders with hero, three case-study cards, How I Work, Off the
-  Clock; theme toggle works; case-study diagrams respond to hover and
-  keyboard focus; no console errors.
+- The landing page shows the identity card and routes to the complete resume and
+  curated Projects page; the theme toggle works with keyboard input; legacy
+  case-study and OpenBrain routes redirect to Projects; no console errors.
 
 ## Test And Build
 
@@ -127,14 +127,35 @@ Production is the Vercel project `kayden-clark` with canonical alias
 `https://kayden-clark.vercel.app`. Git push and production deploy are separate
 owner-authorized actions.
 
+Read-only availability and freshness inspection:
+
+```bash
+git status --short --branch
+git rev-parse HEAD
+git ls-remote --heads origin
+npx --yes vercel inspect https://kayden-clark.vercel.app
+for url in \
+  https://kayden-clark.vercel.app/ \
+  https://kayden-clark.vercel.app/resume.html \
+  https://kayden-clark.vercel.app/projects.html \
+  https://kayden-clark.vercel.app/assets/Kayden-Clark-Resume-2026.pdf
+do
+  curl -L -sS -o /dev/null -w '%{http_code} %{url_effective}\n' "$url"
+done
+```
+
+HTTP 200 and Vercel `Ready` prove availability only. Compare live page content
+to the expected markers in the candidate release; S-011/TK-001 owns a
+deterministic drift report for that comparison.
+
 Deterministic local setup and deploy:
 
 ```bash
 node tools/verify-site.mjs
 node tools/spec-workbench.mjs doctor
-npx vercel link --yes --project kayden-clark --scope kaydenclark725s-projects
-npx vercel --prod --yes
-npx vercel inspect https://kayden-clark.vercel.app
+npx --yes vercel link --yes --project kayden-clark --scope kaydenclark725s-projects
+npx --yes vercel --prod --yes
+npx --yes vercel inspect https://kayden-clark.vercel.app
 ```
 
 The link command creates machine-local `.vercel/` metadata. It is not part of
@@ -143,7 +164,17 @@ the repository and must never be committed.
 Expected healthy state:
 
 - `https://kayden-clark.vercel.app` returns 200 and Vercel reports Ready;
-- every nav link, case-study link, and the resume PDF resolve on the live URL.
+- landing, resume, Projects, approved external destinations, retired redirects,
+  and the resume PDF resolve;
+- live content markers match the exact owner-approved release commit.
+
+Current verified runtime snapshot, 2026-07-17:
+
+- production deployment `dpl_2Kebzhxj9ukfCSAxSnvaN16wrgDj` is Ready;
+- landing, resume, Projects, and the resume PDF return 200;
+- the live Projects page does not yet include AI Agents Presentation even
+  though the current source branch does. S-011 owns this release drift; do not
+  report production as current until its source/content gate passes.
 
 ## Version-Control Procedures
 
@@ -183,7 +214,7 @@ If a downstream lesson should flow back to the harness, log it in
 | verify-site LEAK failure | client-identifying term in a publishable file | the reported file:line | reword to a generic descriptor; never suppress the check |
 | verify-site LINK failure | renamed/moved file or typo'd path | the reported href | fix the path; re-run |
 | doctor reports drift | Taskboard/catalog region out of sync with specs | `node tools/spec-workbench.mjs render` | render regenerates projections; commit the result |
-| Vercel alias shows 404 or stale content | wrong Vercel project linked, production deploy missing, or alias points at an older project | `npx vercel inspect https://kayden-clark.vercel.app`; verify linked project is `kayden-clark` | relink explicitly, deploy only with owner authorization, then inspect the canonical alias |
+| Vercel alias shows 404 or stale content | wrong Vercel project linked, production deploy missing, or alias points at an older release | `npx --yes vercel inspect https://kayden-clark.vercel.app`; compare live content markers to the exact candidate commit | relink explicitly only if project identity is wrong; otherwise deploy only with owner authorization, then inspect and smoke the canonical alias |
 | GitHub repository homepage is stale | repository metadata still points at an older Vercel alias | `gh repo view KaydenClark/resume-portfolio --json homepageUrl` | owner updates the homepage to `https://kayden-clark.vercel.app` |
 | Unexpected file staged | `.gitignore` allowlist widened or bypassed | `git status`, `.gitignore` | unstage; restore the allowlist; ask owner before changing it |
 
