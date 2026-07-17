@@ -130,7 +130,7 @@ acceptance or owner gate remains open.
 | LLM Workbench presentation | Implemented as the unnumbered system behind the work | covered by a current stable spec | S-008 | external-link health moves through S-003 |
 | AI Agents Presentation project | Implemented locally with demo and source links; absent from current production | covered by a current stable spec | S-009 for content; S-011 for release | owner-authorized release |
 | Dungeon Friends presentation | Implemented as an active game-project summary | covered by a current stable spec | S-007 and S-012 | owner approval for any new public destination |
-| Spotify Atlas presentation | Source still says “Spotify Listening” although current product identity is Spotify Atlas | contradicted by live source | S-012 | TK-001 is agent-ready |
+| Spotify Atlas presentation | Source presents Spotify Atlas as a private personal-listening ingestion, visualization, and insight project | covered by a current stable spec | S-012 | exact-head audit and desktop/mobile proof for TK-001 |
 | DnDWebApp/dndAPI/dndclient lifecycle truth | Older portfolio canon proposed archive actions; current direction and GitHub metadata show all three active and unarchived | contradicted by live source | S-003 and S-012 | canon corrected; public inclusion remains owner editorial choice |
 | Curated-project expansion policy | Current public surface is deliberately selected rather than portfolio-wide | unresolved owner decision | S-012 | owner chooses whether the DnD campaign platform joins the public showcase |
 | Synthetic roster and screenshot artifacts | Five deployable synthetic artifacts implemented under `docs/artifacts/` | covered by a current stable spec | S-002 | owner disposition and visual privacy review |

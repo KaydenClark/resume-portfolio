@@ -189,19 +189,35 @@ if (fs.existsSync(resumePath)) {
 
 if (fs.existsSync(projectsPath)) {
   const projects = fs.readFileSync(projectsPath, 'utf8');
-  for (const marker of ['The system behind the work', 'LLM Workbench', 'Things I’m building because I want them to exist', 'AI Agents Presentation', 'Dungeon Friends', 'Spotify']) {
+  for (const marker of [
+    'The system behind the work',
+    'LLM Workbench',
+    'Things I’m building because I want them to exist',
+    'AI Agents Presentation',
+    'Dungeon Friends',
+    '<h2>Spotify Atlas</h2>',
+    'personal listening data',
+    'Ingestion',
+    'Visualization',
+    'Private by design',
+  ]) {
     if (!projects.includes(marker)) failures.push(`SURFACE docs/projects.html is missing ${marker}`);
+  }
+  if (projects.includes('<h2>Spotify Listening</h2>')) {
+    failures.push('SURFACE docs/projects.html still uses the stale Spotify Listening identity');
   }
   const orderedProjects = [
     { name: 'LLM Workbench', marker: 'The system behind the work' },
     { name: 'AI Agents Presentation', marker: '<h2>AI Agents Presentation</h2>' },
     { name: 'Dungeon Friends', marker: '<h2>Dungeon Friends</h2>' },
-    { name: 'Spotify', marker: '<h2>Spotify Listening</h2>' },
+    { name: 'Spotify Atlas', marker: '<h2>Spotify Atlas</h2>' },
   ];
   for (let index = 1; index < orderedProjects.length; index += 1) {
     const previous = orderedProjects[index - 1];
     const current = orderedProjects[index];
-    if (projects.indexOf(previous.marker) > projects.indexOf(current.marker)) {
+    const previousIndex = projects.indexOf(previous.marker);
+    const currentIndex = projects.indexOf(current.marker);
+    if (previousIndex !== -1 && currentIndex !== -1 && previousIndex > currentIndex) {
       failures.push(`SURFACE docs/projects.html places ${current.name} before ${previous.name}`);
     }
   }
@@ -215,6 +231,24 @@ if (fs.existsSync(projectsPath)) {
   }
   for (const retiredMarker of ['OpenBrain', 'Campaign Reporting', 'case-studies/']) {
     if (projects.includes(retiredMarker)) failures.push(`SURFACE docs/projects.html still exposes ${retiredMarker}`);
+  }
+}
+
+const canonicalPortfolioText = [
+  ...walk(path.join(root, 'docs'), ['.html', '.md']),
+  ...['AGENTS.md', 'BLUEPRINT.md', 'LEXICON.md', 'TASKBOARD.md', 'RUNBOOK.md', 'README.md']
+    .map((file) => path.join(root, file))
+    .filter(fs.existsSync),
+];
+for (const file of canonicalPortfolioText) {
+  const text = fs.readFileSync(file, 'utf8');
+  for (const projectName of ['DnDWebApp', 'dndAPI', 'dndclient']) {
+    const escapedName = projectName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const directStaleStatus = new RegExp(`\\b${escapedName}\\b\\s+(?:is|are|remains?)\\s+(?:archived|paused|retired|inactive)\\b`, 'i');
+    const staleDirective = new RegExp(`(?:^|[.!?]\\s+)(?:[-*]\\s+)?(?:archive|pause|retire|deactivate)\\s+(?:the\\s+)?(?:repository\\s+)?\\b${escapedName}\\b`, 'im');
+    if (directStaleStatus.test(text) || staleDirective.test(text)) {
+      failures.push(`IDENTITY ${rel(file)} gives ${projectName} a stale lifecycle status`);
+    }
   }
 }
 

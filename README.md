@@ -7,7 +7,7 @@ Public routes:
 
 - `docs/index.html` — minimal identity landing page
 - `docs/resume.html` — complete resume content in one page
-- `docs/projects.html` — LLM Workbench plus selected AI Agents Presentation, Dungeon Friends, and Spotify projects
+- `docs/projects.html` — LLM Workbench plus three selected projects: AI Agents Presentation, Dungeon Friends, and Spotify Atlas
 
 The previous case-study and OpenBrain routes are retired redirects and are not
 part of the current public navigation.

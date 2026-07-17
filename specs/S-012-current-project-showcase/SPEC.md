@@ -6,12 +6,12 @@
 **Spec ID:** S-012
 **Status:** active
 **Priority:** 0
-**Owner:** unassigned
+**Owner:** Codex-Engineer
 **Updated:** 2026-07-17
 **Catalog description:** Keep the selected-project showcase aligned to current product identities, evidence destinations, and truthful active-status framing.
 **Blockers:** Adding new external links or adding another project to the selected public showcase requires owner approval under AGENTS.md.
-**Latest event:** Portfolio harvest found the Spotify Atlas identity missing from source and stale archived/inactive DnD-suite claims in canonical planning docs.
-**Next gate:** Claim TK-001 and align the existing selected-project identities and verifier without adding a new external link.
+**Latest event:** TK-001 checkpoint aligns the existing Spotify card to Spotify Atlas and adds identity/status verifier coverage without adding an external URL.
+**Next gate:** Audit the pushed checkpoint at an exact head and capture the required desktop/mobile screenshots when a browser session is available.
 
 ## Outcome
 
@@ -25,15 +25,15 @@ campaign-platform program owns them.
 
 Project presentation is the portfolio's strongest proof beyond the resume.
 Stale names or lifecycle claims make the site look abandoned and can direct a
-recruiter to the wrong product story. The current source says “Spotify
-Listening” rather than the settled “Spotify Atlas” identity, and older canon
-still calls the three D&D repositories archive candidates even though all
-three are live and unarchived.
+recruiter to the wrong product story. At the portfolio harvest, source still
+said “Spotify Listening” rather than the settled “Spotify Atlas” identity, and
+older canon still called the three D&D repositories archive candidates even
+though all three were live and unarchived.
 
 ## Current Verified State
 
 - Local source presents LLM Workbench, AI Agents Presentation, Dungeon Friends,
-  and “Spotify Listening” in that order.
+  and Spotify Atlas in that order.
 - S-008 and S-009 own the completed Workbench and AI Agents Presentation
   features; S-007 owns the current multipage shell.
 - The live production page predates S-009 and currently omits AI Agents
@@ -43,7 +43,7 @@ three are live and unarchived.
   makes DnDWebApp the active campaign-platform owner while preserving all three
   histories.
 - Existing source has no public DnDWebApp card and no external links for
-  Dungeon Friends or Spotify.
+  Dungeon Friends or Spotify Atlas.
 
 ## Desired Behavior
 
@@ -99,7 +99,7 @@ three are live and unarchived.
 
 | Ticket | Slice | Status | Blockers | Proof |
 |---|---|---|---|---|
-| TK-001 | Add failing identity/status assertions, rename the existing Spotify card to Spotify Atlas, and align selected-project copy without adding a new external link | ready | none | pending |
+| TK-001 | Add failing identity/status assertions, rename the existing Spotify card to Spotify Atlas, and align selected-project copy without adding a new external link | in-progress | none | red/green and full local checks passed; exact-head audit and screenshots pending |
 | TK-002 | Add owner-approved evidence destinations for Dungeon Friends and Spotify Atlas, then verify each destination and the desktop/mobile card behavior | blocked | TK-001, S-003, and owner approval for each new external link | pending |
 | TK-003 | Decide whether the active DnD campaign platform belongs in the selected showcase; if approved, add one cohesive DnDWebApp presentation without inactive framing or repository consolidation claims | blocked | TK-001 and owner editorial choice | pending |
 | TK-004 | Run the complete local project-presentation proof and hand the exact expected markers to S-011's release candidate | ready | TK-002, TK-003 | pending |
@@ -171,6 +171,7 @@ Approved external destinations also receive a live fetch and browser check.
 | Date | Ticket | Event | Verification | Docs | Remaining gap |
 |---|---|---|---|---|---|
 | 2026-07-17 | spec | Portfolio coverage harvest | Source inspection confirmed current local order and Spotify naming; GitHub read-only metadata confirmed all three DnD repositories are unarchived | S-012 created; Blueprint stale archive canon removed; S-003 reframed around destination accuracy | TK-001 through TK-004 remain |
+| 2026-07-17 | TK-001 | Added verifier assertions for the Spotify Atlas identity, privacy-safe scope, project order, and direct stale lifecycle framing; renamed and aligned the existing link-free Spotify card | Red: `node tools/verify-site.mjs` failed on six expected Spotify identity/scope assertions, and a focused stale-status probe failed with `IDENTITY README.md gives DnDWebApp a stale lifecycle status`; green: verifier, JavaScript syntax, and spec doctor passed; source diff added no external URL | `README.md`, `BLUEPRINT.md`, and S-012 updated; Runbook checked, no change needed because commands did not change | Exact-head audit and desktop/mobile screenshots remain before close |
 
 ## Completion Result
 
