@@ -32,6 +32,13 @@ function walk(dir, exts) {
   return out;
 }
 const rel = (p) => path.relative(root, p).replaceAll('\\', '/');
+function extractHtmlBlock(html, openingMarker, closingMarker) {
+  const start = html.indexOf(openingMarker);
+  if (start === -1) return null;
+  const end = html.indexOf(closingMarker, start);
+  if (end === -1) return null;
+  return html.slice(start, end + closingMarker.length);
+}
 
 /* ---------- gate 1: leak scan ---------- */
 // Publishable surfaces: docs/ (the site) and specs/ + root control docs (public repo).
@@ -189,23 +196,70 @@ if (fs.existsSync(resumePath)) {
 
 if (fs.existsSync(projectsPath)) {
   const projects = fs.readFileSync(projectsPath, 'utf8');
-  for (const marker of [
-    'The system behind the work',
-    'LLM Workbench',
-    'Things I’m building because I want them to exist',
-    'AI Agents Presentation',
-    'Dungeon Friends',
-    '<h2>Spotify Atlas</h2>',
-    'personal listening data',
-    'Ingestion',
-    'Visualization',
-    'Private by design',
-  ]) {
+  for (const marker of ['Things I’m building because I want them to exist']) {
     if (!projects.includes(marker)) failures.push(`SURFACE docs/projects.html is missing ${marker}`);
   }
-  if (projects.includes('<h2>Spotify Listening</h2>')) {
-    failures.push('SURFACE docs/projects.html still uses the stale Spotify Listening identity');
+
+  const systemFeature = extractHtmlBlock(projects, '<section class="system-feature"', '</section>');
+  if (!systemFeature) {
+    failures.push('SURFACE docs/projects.html is missing the LLM Workbench system feature');
+  } else {
+    for (const marker of ['The system behind the work', 'LLM Workbench']) {
+      if (!systemFeature.includes(marker)) failures.push(`SURFACE LLM Workbench feature is missing ${marker}`);
+    }
+    if (systemFeature.includes('project-feature-number')) {
+      failures.push('SURFACE LLM Workbench must remain unnumbered');
+    }
   }
+
+  const projectCardContracts = [
+    { className: 'project-feature-agents', number: '01', heading: 'AI Agents Presentation' },
+    { className: 'project-feature-game', number: '02', heading: 'Dungeon Friends' },
+    { className: 'project-feature-music', number: '03', heading: 'Spotify Atlas' },
+  ];
+  const projectCards = new Map();
+  for (const contract of projectCardContracts) {
+    const openingMarker = `<article class="project-feature ${contract.className}">`;
+    const card = extractHtmlBlock(projects, openingMarker, '</article>');
+    if (!card) {
+      failures.push(`SURFACE docs/projects.html is missing ${contract.className}`);
+      continue;
+    }
+    projectCards.set(contract.className, card);
+    const numberMarker = `<div class="project-feature-number" aria-hidden="true">${contract.number}</div>`;
+    if (!card.includes(numberMarker)) {
+      failures.push(`SURFACE ${contract.heading} must display project number ${contract.number}`);
+    }
+    if (!card.includes(`<h2>${contract.heading}</h2>`)) {
+      failures.push(`SURFACE ${contract.className} must present ${contract.heading}`);
+    }
+  }
+
+  const spotifyCard = projectCards.get('project-feature-music');
+  if (spotifyCard) {
+    for (const marker of [
+      '<h2>Spotify Atlas</h2>',
+      'A private website',
+      'personal listening data',
+      'Ingestion',
+      'Visualization',
+      'Private by design',
+    ]) {
+      if (!spotifyCard.includes(marker)) failures.push(`SURFACE Spotify Atlas card is missing ${marker}`);
+    }
+    if (spotifyCard.includes('<h2>Spotify Listening</h2>')) {
+      failures.push('SURFACE Spotify Atlas card still uses the stale Spotify Listening identity');
+    }
+    for (const contradiction of [
+      /\bpublic\s+(?:website|site|page|listening data)\b/i,
+      /\b(?:publishes?|shares?|exposes?)\s+(?:my\s+)?(?:personal\s+|private\s+)?listening data\b/i,
+    ]) {
+      if (contradiction.test(spotifyCard)) {
+        failures.push(`SURFACE Spotify Atlas card contradicts its privacy contract: ${contradiction}`);
+      }
+    }
+  }
+
   const orderedProjects = [
     { name: 'LLM Workbench', marker: 'The system behind the work' },
     { name: 'AI Agents Presentation', marker: '<h2>AI Agents Presentation</h2>' },
@@ -236,20 +290,23 @@ if (fs.existsSync(projectsPath)) {
 
 const canonicalPortfolioText = [
   ...walk(path.join(root, 'docs'), ['.html', '.md']),
+  ...walk(path.join(root, 'specs'), ['.md']),
   ...['AGENTS.md', 'BLUEPRINT.md', 'LEXICON.md', 'TASKBOARD.md', 'RUNBOOK.md', 'README.md']
     .map((file) => path.join(root, file))
     .filter(fs.existsSync),
 ];
 for (const file of canonicalPortfolioText) {
-  const text = fs.readFileSync(file, 'utf8');
-  for (const projectName of ['DnDWebApp', 'dndAPI', 'dndclient']) {
-    const escapedName = projectName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    const directStaleStatus = new RegExp(`\\b${escapedName}\\b\\s+(?:is|are|remains?)\\s+(?:archived|paused|retired|inactive)\\b`, 'i');
-    const staleDirective = new RegExp(`(?:^|[.!?]\\s+)(?:[-*]\\s+)?(?:archive|pause|retire|deactivate)\\s+(?:the\\s+)?(?:repository\\s+)?\\b${escapedName}\\b`, 'im');
-    if (directStaleStatus.test(text) || staleDirective.test(text)) {
-      failures.push(`IDENTITY ${rel(file)} gives ${projectName} a stale lifecycle status`);
+  const lines = fs.readFileSync(file, 'utf8').split('\n');
+  lines.forEach((line, index) => {
+    for (const projectName of ['DnDWebApp', 'dndAPI', 'dndclient']) {
+      const escapedName = projectName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const directStaleStatus = new RegExp(`\\b${escapedName}\\b\\s+(?:is|are|remains?)\\s+(?:archived|paused|retired|inactive)\\b`, 'i');
+      const staleDirective = new RegExp(`^\\s*(?:[-*]\\s+)?(?:archive|pause|retire|deactivate)\\s+(?:the\\s+)?(?:repository\\s+)?\\b${escapedName}\\b`, 'i');
+      if (directStaleStatus.test(line) || staleDirective.test(line)) {
+        failures.push(`IDENTITY ${rel(file)}:${index + 1} gives ${projectName} a stale lifecycle status`);
+      }
     }
-  }
+  });
 }
 
 for (const retiredPath of [
