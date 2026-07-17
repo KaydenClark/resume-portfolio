@@ -4,14 +4,14 @@
 > `specs/S-002-case-study-artifacts/SPEC.md`; never move between status folders.
 
 **Spec ID:** S-002
-**Status:** active
+**Status:** blocked
 **Priority:** 1
-**Owner:** Terra
-**Updated:** 2026-07-15
+**Owner:** Captain-Luna-Engineer
+**Updated:** 2026-07-17
 **Catalog description:** Anonymized, synthetic-data artifacts and screenshots embedded in the case pages.
-**Blockers:** none
-**Latest event:** TK-002 closed with proof.
-**Next gate:** Complete TK-003.
+**Blockers:** Owner decision: S-007 retires every case-study route; do not re-expose artifacts without approving a new public surface and completing the required eyeball review.
+**Latest event:** TK-003 blocked: its required case-page links conflict with the S-007 retired-route contract.
+**Next gate:** Owner decides whether to keep artifacts offline or authorize a new reviewed public-surface spec.
 
 ## Outcome
 
@@ -65,7 +65,7 @@ link. Evidence is the difference between a claim and a case study.
 |---|---|---|---|---|
 | TK-001 | Create anonymized roster template with synthetic employees (triple-validation structure visible) | done | none | Red: verifier failed for missing roster template; green: verify-site passed with CSV contract. |
 | TK-002 | Screenshot set from anonymized workbooks: control panel, QA checks, rollup views, GPM heatmap; synthetic data only | done | none | Red: verifier failed for four missing screenshot assets; green: all four synthetic SVG screenshots passed XML validation and verify-site. |
-| TK-003 | Add `docs/artifacts/`, link artifacts + screenshots from all three case pages, re-run full verification | ready | TK-001, TK-002 | pending |
+| TK-003 | Add `docs/artifacts/`, link artifacts + screenshots from all three case pages, re-run full verification | blocked | Owner decision: this would revive S-007-retired case-study routes and needs the required artifact eyeball review | pending |
 
 ## Acceptance Criteria
 
@@ -99,6 +99,7 @@ node tools/spec-workbench.mjs doctor
 |---|---|---|---|---|---|
 | 2026-07-15 | TK-001 | Ticket closed | Red: verifier failed for missing roster template; green: verify-site passed with CSV contract. | SPEC evidence updated; TASKBOARD rendered. | TK-002 screenshot set and TK-003 case-page links remain. |
 | 2026-07-15 | TK-002 | Ticket closed | Red: verifier failed for four missing screenshot assets; green: all four synthetic SVG screenshots passed XML validation and verify-site. | SPEC evidence updated; TASKBOARD rendered. | TK-003 must link the completed artifacts from the future public surface; owner must eyeball artifacts before a publishing commit. |
+| 2026-07-17 | TK-003 | Ticket blocked | Baseline `node tools/verify-site.mjs` passed (30 publishable files); route inspection confirmed all four legacy case-study pages are S-007 retired redirects. No link change made because it would violate the verified public-surface contract. | SPEC blocker updated; TASKBOARD must be rendered. | Owner must choose a new public-surface spec or keep the synthetic artifacts offline, then eyeball any artifact before publication. |
 
 ## Completion Result
 
