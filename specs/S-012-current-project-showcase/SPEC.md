@@ -102,7 +102,7 @@ three are live and unarchived.
 | TK-001 | Add failing identity/status assertions, rename the existing Spotify card to Spotify Atlas, and align selected-project copy without adding a new external link | ready | none | pending |
 | TK-002 | Add owner-approved evidence destinations for Dungeon Friends and Spotify Atlas, then verify each destination and the desktop/mobile card behavior | blocked | TK-001, S-003, and owner approval for each new external link | pending |
 | TK-003 | Decide whether the active DnD campaign platform belongs in the selected showcase; if approved, add one cohesive DnDWebApp presentation without inactive framing or repository consolidation claims | blocked | TK-001 and owner editorial choice | pending |
-| TK-004 | Run the complete local project-presentation proof and hand the exact expected markers to S-011's release candidate | ready | TK-002 and a recorded approve-or-decline result for TK-003 | pending |
+| TK-004 | Run the complete local project-presentation proof and hand the exact expected markers to S-011's release candidate | ready | TK-002, TK-003 | pending |
 
 ### Ticket Done Criteria And Required Proof
 

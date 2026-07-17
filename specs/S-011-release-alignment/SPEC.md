@@ -87,7 +87,7 @@ source-to-production alignment.
 | Ticket | Slice | Status | Blockers | Proof |
 |---|---|---|---|---|
 | TK-001 | Add a read-only release-drift report that compares local/upstream Git state, Vercel deployment metadata, live route status, and expected public markers | ready | none | pending |
-| TK-002 | Produce an exact candidate release commit and clean-clone proof after S-010 privacy and S-012 project-identity gates pass | ready | TK-001, S-010, and S-012 | pending |
+| TK-002 | Produce an exact candidate release commit and clean-clone proof after S-010 privacy and S-012 project-identity gates pass | ready | TK-001, S-010, S-012 | pending |
 | TK-003 | Publish the approved release commit to the owner-selected Git branch and deploy that exact content to Vercel production | blocked | TK-002 and explicit owner Git/deployment authorization | pending |
 | TK-004 | Run desktop/mobile live smoke, verify recovery from the canonical remote, and record deployment ID plus exact released commit | ready | TK-003 | pending |
 
