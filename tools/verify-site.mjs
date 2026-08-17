@@ -201,20 +201,28 @@ if (fs.existsSync(indexPath)) {
 if (fs.existsSync(stylePath)) {
   const css = fs.readFileSync(stylePath, 'utf8');
   for (const marker of [
-    '--royal-gold: #9d8106;',
-    '--accent-contrast: #fffdfa;',
-    '--accent-contrast: #11100d;',
+    // Light Site template defaults: teal accent, soft #dbeef0, white on accent.
+    '--accent: #14707a;',
+    '--accent-soft: #dbeef0;',
+    '--accent-contrast: #ffffff;',
+    '--link: #176e91;',
+    // Paper surfaces.
+    '--bg: #f7f5f2;',
+    '--bg-raised: #fffdfa;',
+    '--border: #e3ded3;',
+    '--text-strong: #241e12;',
+    // Seven-stop rainbow hairline.
     '--rainbow:',
-    '#de2b31',
-    '#885a89',
-    '#4daa57',
-    '#3a7ca5',
-    '#e0bd3e',
-    '#cf4f84',
-    '#ff6201',
-    '#1abcbd',
+    '#ec0f8c',
+    '#2323e0',
+    '#29abe2',
+    '#2ecc40',
+    '#e8221a',
+    '#ff8c1a',
+    '#ffe600',
+    // Diamonds motif, 112 tile at 0.85 scale, 7% visibility.
     '--pattern:',
-    "width='53' height='95'",
+    "width='95' height='95'",
     "opacity='.07'",
     '.identity-card',
     '.section-kicker::before',

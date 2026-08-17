@@ -113,6 +113,7 @@ Design decisions recorded at bootstrap (owner-confirmed unless noted):
 | [S-007 - Portfolio Mission Control Capstone + Interactive Dashboards](specs/S-007-mission-control-capstone/SPEC.md) | Capstone "Mission Control" case study plus the site's first live, synthetic interactive dashboards. | active |
 | [S-008 - Compact Portfolio Navigation](specs/S-008-compact-portfolio-navigation/SPEC.md) | Restore the compact, card-led public portfolio and frame Kayden as a Business Process Analyst. | complete |
 | [S-009 - Section Label Refinement](specs/S-009-section-label-refinement/SPEC.md) | Replace numbered slash section labels with compact colored diamonds and simplify the résumé outcomes section. | complete |
+| [S-010 - Light Site Template Refresh](specs/S-010-light-site-template-refresh/SPEC.md) | Re-point the site's visual layer at the refreshed Light Site brand template (teal accent, seven-stop rainbow, diamond crosshatch) without touching navigation or copy. | complete |
 <!-- spec-catalog:end -->
 
 ## Cross-Cutting Health
