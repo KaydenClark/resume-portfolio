@@ -1,6 +1,7 @@
 # kayden clark — portfolio
 
-Static portfolio site. Published from `docs/` via GitHub Pages.
+Static portfolio site. Published from `docs/` via the `kayden-clark` Vercel
+project.
 
 ## Structure
 
@@ -20,7 +21,8 @@ cd docs && python -m http.server 8000
 
 ## Deploy
 
-GitHub Pages → Settings → Pages → Deploy from branch → `main` / `docs/`.
+Run the static verifier, then deploy the clean `docs/` directory to the
+existing `kayden-clark` Vercel project. Do not deploy from a dirty checkout.
 
 ## Editing rules
 

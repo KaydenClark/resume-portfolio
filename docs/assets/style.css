@@ -57,7 +57,7 @@ nav.main a:hover, nav.main a[aria-current="page"] { color: var(--text); }
 
 @media (max-width: 640px) {
   html, body { max-width: 100%; overflow-x: hidden; }
-  .wrap { width: 100%; }
+  .wrap { width: auto; }
   header.site .wrap { align-items: flex-start; flex-wrap: wrap; gap: .45rem; }
   nav.main { flex: 1 1 100%; gap: .2rem; justify-content: space-between; }
   nav.main a { font-size: .78rem; padding: .2rem .1rem; }
