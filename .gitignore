@@ -1,0 +1,38 @@
+# WHITELIST STRATEGY: ignore everything, then re-allow only what is safe to publish.
+# Anything new dropped at the repo root is PRIVATE BY DEFAULT.
+# Drafts, root-level resumes, and Office files are ignored automatically.
+
+/*
+
+# --- publishable allowlist ---
+!/docs
+!/.gitignore
+!/README.md
+
+# LLM Workbench v2.3 harness (control docs, specs, tooling)
+!/AGENTS.md
+!/BLUEPRINT.md
+!/LEXICON.md
+!/TASKBOARD.md
+!/RUNBOOK.md
+!/HARNESS_FEEDBACK.md
+!/CLAUDE.md
+!/specs
+!/tools
+!/.claude
+
+# --- never allow these even inside docs ---
+docs/**/~$*
+docs/**/.DS_Store
+Thumbs.db
+
+# Local resume build artifacts. Keep them available without publishing them.
+/docs/Kayden_Clark_Business_Process_Analyst_Resume_2026.docx
+/tools/build_bpa_resume.py
+/tools/check_resume_pdf.py
+/tools/export_and_check_resume.ps1
+
+# Agent skills: keep regenerable symlinks out of the publish set.
+# (.agents and skills-lock.json are already excluded by the whitelist above;
+#  .claude is force-included, so its skills/ subdir must be re-excluded here.)
+/.claude/skills/
