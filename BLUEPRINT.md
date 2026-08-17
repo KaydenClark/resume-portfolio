@@ -104,7 +104,7 @@ Design decisions recorded at bootstrap (owner-confirmed unless noted):
 <!-- spec-catalog:start -->
 | Spec | Description | Status |
 |---|---|---|
-| [S-001 - Static Portfolio Site](specs/S-001-static-portfolio-site/SPEC.md) | Recruiter-facing Business Process Analyst site with resume and project pages, shipped on GitHub Pages. | active |
+| [S-001 - Static Portfolio Site](specs/S-001-static-portfolio-site/SPEC.md) | Recruiter-facing Business Process Analyst site with resume and project pages, shipped on GitHub Pages. | complete |
 | [S-002 - Case Study Artifacts](specs/S-002-case-study-artifacts/SPEC.md) | Anonymized, synthetic-data artifacts and screenshots embedded in the case pages. | active |
 | [S-003 - GitHub Repo Hygiene](specs/S-003-github-repo-hygiene/SPEC.md) | Archive-status READMEs on linked repos and an optional sanitized OpenBrain template. | planned |
 | [S-004 - Brand Template Alignment](specs/S-004-brand-template-alignment/SPEC.md) | Apply the supplied SLK brand template to the static portfolio without changing its verified content architecture. | complete |

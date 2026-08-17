@@ -4,14 +4,14 @@
 > `specs/S-001-static-portfolio-site/SPEC.md`; never move between status folders.
 
 **Spec ID:** S-001
-**Status:** active
+**Status:** complete
 **Priority:** 0
 **Owner:** Codex
 **Updated:** 2026-08-17
 **Catalog description:** Recruiter-facing Business Process Analyst site with resume and project pages, shipped on GitHub Pages.
 **Blockers:** none
-**Latest event:** TK-002 claimed by Codex.
-**Next gate:** Close TK-002 with verification and documentation proof.
+**Latest event:** Spec completed and removed from the hot board.
+**Next gate:** none
 
 ## Outcome
 
@@ -28,10 +28,12 @@ a phone, a skim, and a skeptical engineer clicking every link.
 ## Current Verified State
 
 - `docs/` contains index, resume, projects, and OpenBrain pages plus shared
-  CSS/JS and the resume PDF (verified 2026-08-16: leak scan and internal links
-  clean; local desktop/mobile browser checks and external-link checks passed).
-- The current release candidate is on `integration`; public `main` remains at
-  `4ef63f7`. The planned GitHub Pages release remains an owner gate.
+  CSS/JS and the resume PDF. Static verification and live desktop/mobile browser
+  checks passed on 2026-08-17.
+- GitHub Pages serves `docs/` from protected `main` over HTTPS at
+  `https://kaydenclark.github.io/resume-portfolio/`.
+- Public `main` and `integration` were normalized to the approved clean history;
+  the retired work branches are no longer public.
 
 ## Desired Behavior
 
@@ -59,22 +61,21 @@ a phone, a skim, and a skeptical engineer clicking every link.
 
 ## Dependencies And Blockers
 
-- TK-002 requires the owner (history rewrite approval, git credentials, and
-  GitHub settings).
+- None.
 
 ## Vertical Implementation Slices
 
 | Ticket | Slice | Status | Blockers | Proof |
 |---|---|---|---|---|
 | TK-001 | Build core site: index, 3 case pages, OpenBrain page, assets, resume PDF | done | none | verify-site + HTML parse + live external-link fetch, 2026-07-13 |
-| TK-002 | Back up refs, protect local-only artifacts, remove retired tools, normalize public history, publish verified `integration` to `main`, and confirm GitHub Pages | in-progress | none | pending |
-| TK-003 | Post-deploy smoke test on live URL: every page, every link, PDF, mobile viewport, dark/light | ready | TK-002 | pending |
+| TK-002 | Back up refs, protect local-only artifacts, remove retired tools, normalize public history, publish verified `integration` to `main`, and confirm GitHub Pages | done | none | Verified backups and SHA-256 checks; main/integration rewritten atomically to clean one-commit history b5df867; eight stale remote branches deleted; retired plaintext denylist scan returned zero public hits; Pages built from main/docs over HTTPS. |
+| TK-003 | Post-deploy smoke test on live URL: every page, every link, PDF, mobile viewport, dark/light | done | TK-002 | Live Edge/Playwright: index, resume, projects, and OpenBrain returned 200 at 1440x1000 and 390x844; PDF returned 200 application/pdf; no horizontal overflow; theme persisted; skip link focused and landed at #main; console had zero warnings/errors; screenshots visually reviewed. |
 
 ## Acceptance Criteria
 
-- [ ] Site reachable at the GitHub Pages URL.
-- [ ] `node tools/verify-site.mjs` passes on the deployed commit.
-- [ ] Manual live check: all pages render, all links resolve, resume PDF
+- [x] Site reachable at the GitHub Pages URL.
+- [x] `node tools/verify-site.mjs` passes on the deployed commit.
+- [x] Manual live check: all pages render, all links resolve, resume PDF
       downloads, theme toggle and keyboard navigation work, and content remains
       readable on a ~380px viewport.
 
@@ -103,10 +104,17 @@ node tools/spec-workbench.mjs doctor
 | 2026-07-13 | TK-001 | Core site built (5 HTML pages, shared CSS/JS, resume PDF); Genesis bootstrap ran against this scaffold as the Phase 3 artifact | verify-site passed (leak scan / links / placeholders); HTML parse clean; LLM_Workbench and DnDWebApp links fetched live | Blueprint, Agents, Runbook, Taskboard created and stamped v2.3 | TK-002 deploy + TK-003 live smoke test |
 | 2026-07-13 | ad-hoc | Interim feedback draft deployed to Vercel production at `https://kayden-clark.vercel.app` (deployment `dpl_4SnjGanW2aRYiqwohNqL9kLxvsaL`) | Vercel READY; all 6 HTML routes, CSS, JS, and resume PDF returned 200; desktop and 390px screenshots visually checked; no runtime errors in the first hour | Spec updated; no Taskboard change because TK-002 GitHub Pages gate remains open | Owner feedback and planned GitHub Pages deployment remain |
 | 2026-08-16 | ad-hoc | Removed private-source inventory language from public controls/specs and replaced plaintext leak-denylist terms with fingerprints | verify-site + doctor passed; Edge/Playwright desktop/mobile light/dark review and keyboard/theme/navigation checks passed with zero local console warnings/errors; published one-page PDF rendered cleanly, extracted cleanly, and hash-matched its source; four external links resolved in Edge | AGENTS, Blueprint, Lexicon, Runbook, Taskboard, README, and active specs checked/updated | Owner-gated remote history normalization and `main` release remain |
+| 2026-08-17 | TK-002 | Ticket closed | Verified backups and SHA-256 checks; main/integration rewritten atomically to clean one-commit history b5df867; eight stale remote branches deleted; retired plaintext denylist scan returned zero public hits; Pages built from main/docs over HTTPS. | RUNBOOK release procedure and S-001 decisions were updated; TASKBOARD rendered by Workbench. | TK-003 live URL smoke test and completion gates. |
+| 2026-08-17 | TK-003 | Ticket closed | Live Edge/Playwright: index, resume, projects, and OpenBrain returned 200 at 1440x1000 and 390x844; PDF returned 200 application/pdf; no horizontal overflow; theme persisted; skip link focused and landed at #main; console had zero warnings/errors; screenshots visually reviewed. | S-001 verification and completion state updated; no public usage change needed beyond the existing README. | Acceptance checkboxes, completion result, final verifier/doctor, and protected-main proof publication. |
+| 2026-08-17 | spec | Spec completed | Acceptance gates satisfied | Documentation impact recorded above | none |
 
 ## Completion Result
 
-Pending.
+The recruiter-facing portfolio is live on GitHub Pages from protected `main`.
+Its four HTML pages and resume PDF passed static verification plus live Edge
+desktop/mobile, theme, keyboard, link, overflow, and console checks. Public Git
+history was normalized to the approved clean release, stale public work branches
+were removed, and local recovery bundles preserve the pre-cleanup state.
 
 ## Remaining Limitations Or Follow-Up Specs
 
