@@ -6,6 +6,7 @@ specification for requirements, decisions, and proof; then run the renderer.
 <!-- hot-specs:start -->
 | Spec | Current slice | Owner | Blocker | Latest meaningful event | Next gate |
 |---|---|---|---|---|---|
+| [S-011](specs/S-011-vercel-portfolio-consolidation/SPEC.md) | TK-001: Deploy the immutable current `main/docs` site to `kayden-clark` and verify the public production URL (blocked) | Kayden | Valid Vercel authentication | Owner approved consolidation; verified that `kayden-clark` is the intended project and that the local Vercel CLI is unauthenticated. | Owner authenticates the Vercel CLI, then deploys the immutable `origin/main:docs` tree to `kayden-clark`. |
 | [S-002](specs/S-002-case-study-artifacts/SPEC.md) | TK-001: Create anonymized roster template with synthetic employees (triple-validation structure visible) (ready) | Kayden | none | Spec captured at Genesis; synthetic artifact plan is ready. | Produce the anonymized roster template (TK-001). |
 | [S-007](specs/S-007-mission-control-capstone/SPEC.md) | TK-002: Invoice interactive dashboard on the invoicing page, wired to the shared dataset (ready) | Kayden | TK-001 | TK-001 closed with proof. | Complete TK-002. |
 <!-- hot-specs:end -->
