@@ -2,9 +2,9 @@
 
 > Generated from LLM Workbench v2.3. See Upgrading The Harness below.
 
-**Last reviewed:** 2026-08-16
+**Last reviewed:** 2026-08-17
 **Runtime owner:** Kayden (owner); agents operate under `AGENTS.md`
-**Environment:** local (Windows, `E:\GPT_OS\Projects\resume-portfolio`) → GitHub Pages (production)
+**Environment:** local (Windows, `E:\GPT_OS\Projects\resume-portfolio`) → Vercel `kayden-clark` (production)
 
 This file explains how to operate, verify, recover, and evaluate the project. It
 should be boring, exact, and executable.
@@ -14,14 +14,16 @@ should be boring, exact, and executable.
 Required tools:
 
 - Node.js 18+ (verified on v22) - runs the verifier and spec tooling
-- Git - version control and deploy (push to `main` publishes)
+- Git - version control
+- Vercel CLI - production deploys to the existing `kayden-clark` project
 - Python 3 (optional) - local preview server
 - Any modern browser - manual render checks
 
 Required accounts/services:
 
 - GitHub account with access to `github.com/KaydenClark/resume-portfolio`
-- GitHub Pages enabled: Settings → Pages → Deploy from branch → `main` / `docs/`
+- Vercel team `kaydenclark725s-projects` with access to the existing
+  `kayden-clark` project
 
 Required local files:
 
@@ -119,8 +121,9 @@ No databases, seeds, or migrations. One portfolio-data safety rule:
 
 ## Deployment Or Startup
 
-Deploy = fast-forward the verified `integration` release to `main`. GitHub
-Pages serves `docs/` from `main` directly.
+Deploy = publish the verified, clean `docs/` tree to the existing Vercel
+`kayden-clark` project. GitHub Pages remains an independent fallback until the
+owner explicitly retires it.
 
 Release procedure (owner, PowerShell; both pushes require explicit approval):
 
@@ -142,12 +145,22 @@ git push origin main
 git switch integration
 ```
 
-GitHub Pages must be configured once at Settings → Pages → Deploy from branch
-→ `main` / `docs/`.
+From a clean worktree based on the release commit, link only the `docs/`
+directory to `kayden-clark` and deploy it:
+
+```powershell
+cd docs
+npx --yes vercel@latest link --project kayden-clark --scope kaydenclark725s-projects --yes
+npx --yes vercel@latest deploy --prod --yes
+```
+
+The Vercel CLI may create `.vercel/` and `.env.local` locally. Do not commit
+them; remove them from the temporary worktree after deployment.
 
 Expected healthy state:
 
-- site reachable at the Pages URL within ~1 minute of push;
+- `https://kayden-clark.vercel.app` reachable after the Vercel deployment is
+  marked READY;
 - every navigation link, project link, and the resume PDF resolve on the live
   URL.
 
@@ -200,7 +213,7 @@ If a downstream lesson should flow back to the harness, log it in
 | verify-site LEAK failure | client-identifying term in a publishable file | the reported file:line | reword to a generic descriptor; never suppress the check |
 | verify-site LINK failure | renamed/moved file or typo'd path | the reported href | fix the path; re-run |
 | doctor reports drift | Taskboard/catalog region out of sync with specs | `node tools/spec-workbench.mjs render` | render regenerates projections; commit the result |
-| Pages shows 404 | Pages not set to `main`/`docs`, or push didn't include `docs/` | repo Settings → Pages; `git ls-files docs` | fix setting or commit the missing files |
+| Vercel deployment shows 404 | wrong working directory or stale project link | `vercel inspect <deployment-url>`; verify the project is `kayden-clark` | deploy the clean `docs/` directory after linking it to `kayden-clark` |
 | Unexpected file staged | `.gitignore` allowlist widened or bypassed | `git status`, `.gitignore` | unstage; restore the allowlist; ask owner before changing it |
 
 ## Recovery And Rollback
