@@ -115,6 +115,7 @@ Design decisions recorded at bootstrap (owner-confirmed unless noted):
 | [S-009 - Section Label Refinement](specs/S-009-section-label-refinement/SPEC.md) | Replace numbered slash section labels with compact colored diamonds and simplify the résumé outcomes section. | complete |
 | [S-010 - Light Site Template Refresh](specs/S-010-light-site-template-refresh/SPEC.md) | Re-point the site's visual layer at the refreshed Light Site brand template (teal accent, seven-stop rainbow, diamond crosshatch) without touching navigation or copy. | complete |
 | [S-011 - Vercel Portfolio Consolidation](specs/S-011-vercel-portfolio-consolidation/SPEC.md) | Consolidate the public portfolio on the existing `kayden-clark` Vercel project and retire the duplicate `resume-portfolio` project after production verification. | complete |
+| [S-012 - Public Workbench Reference](specs/S-012-public-workbench-reference/SPEC.md) | Point the portfolio Workbench presentation at the public Workbench Template. | needs-review |
 <!-- spec-catalog:end -->
 
 ## Cross-Cutting Health
