@@ -1,14 +1,14 @@
 # S-012 - Public Workbench Reference
 
 **Spec ID:** S-012
-**Status:** needs-review
+**Status:** complete
 **Priority:** 0
 **Owner:** Codex
 **Updated:** 2026-10-17
 **Catalog description:** Point the portfolio Workbench presentation at the public Workbench Template.
 **Blockers:** none
-**Latest event:** Local Task, assembled candidate and pre-PR QA passed; delivery route awaits parent resolution.
-**Next gate:** Resolve documented direct-fast-forward procedure versus main PR requirement before delivery.
+**Latest event:** Spec completed and removed from the hot board.
+**Next gate:** none
 
 ## Outcome
 
@@ -22,11 +22,12 @@ Workbench Template, while preserving the existing portfolio layout and claims.
 - Preserve CSS, assets, metrics, other projects, historical source provenance,
   and repository/security settings.
 - Run task checks and independent Task/Spec review plus pre-PR QA before a PR.
-- This repository publishes GitHub Pages from main. RUNBOOK prescribes
-  integration-to-main fast-forward direct pushes, while the active main
-  ruleset requires a PR. Integration is five commits behind main. Report this
-  delivery conflict to the parent; do not bypass the ruleset, invent a new
-  workflow or claim deployed verification.
+- The owner authorized normal PR requirements to take precedence over the stale
+  direct-push recipe. Integration was fast-forwarded to the existing main
+  baseline; reviewed feature PR 6 merged into integration, then promotion PR 7
+  merged through the enforced main PR gate. No protection bypass was used.
+- Vercel production is the canonical portfolio; GitHub Pages remains a fallback.
+  Verify actual deployed content and commit separately from local acceptance.
 
 ## Vertical Implementation Slices
 
@@ -59,10 +60,14 @@ live verification remain separate from local acceptance.
 
 | 2026-10-17 | spec | Corrected candidate independently reviewed | 45149f3 Task PASS, assembled candidate PASS and local pre-PR QA PASS; 1440px and 390px screenshots, exact-link click checks, no overflow or console errors | Acceptance reflects local preparation only; delivery is not complete | Parent resolution of documented direct-FF procedure versus main PR rule; then authorized delivery and live verification |
 
+| 2026-10-17 | spec | Delivered through protected main and verified canonical production | PR 6 integration 047501a and PR 7 main 3316a07 contain reviewed candidate with identical tree; main verifier and doctor pass; Vercel production dpl_FsTzRKztPKpZB8CH3CtWEBvHiBbY READY; projects and resume HTTP 200 with correct Template links and exact source hashes | Owner authorized normal PR path; no direct protected-main push or settings change; local acceptance evidence retained | Secondary Pages propagation checked separately |
+| 2026-10-17 | spec | Spec completed | Acceptance gates satisfied | Documentation impact recorded above | none |
+
 ## Completion Result
 
-Both Workbench entries are implemented locally and pass the configured checks
-and focused desktop/mobile QA. Independent Task, assembled candidate and local
-pre-PR QA review passed at 45149f3. This bookkeeping update records those
-verdicts; the reviewed HTML is unchanged. No PR, push, main promotion or
-deployment has occurred. Delivery and live verification remain open.
+The two public Workbench entries now identify and link to Workbench Template.
+Reviewed candidate 29b2c03 was delivered through PR 6 at integration 047501a and
+PR 7 at main 3316a07. Main contains the exact reviewed tree; its site verifier
+and doctor pass. Vercel production deployment dpl_FsTzRKztPKpZB8CH3CtWEBvHiBbY is
+READY for 3316a07. Both canonical live pages return HTTP 200 with Template links
+and no producer destination; response hashes match the committed HTML.
