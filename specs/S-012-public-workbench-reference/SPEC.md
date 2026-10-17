@@ -1,14 +1,14 @@
 # S-012 - Public Workbench Reference
 
 **Spec ID:** S-012
-**Status:** active
+**Status:** needs-review
 **Priority:** 0
 **Owner:** Codex
 **Updated:** 2026-10-17
 **Catalog description:** Point the portfolio Workbench presentation at the public Workbench Template.
 **Blockers:** none
-**Latest event:** TK-001 closed with proof.
-**Next gate:** Confirm acceptance criteria and completion result.
+**Latest event:** Local Task, assembled candidate and pre-PR QA passed; delivery route awaits parent resolution.
+**Next gate:** Resolve documented direct-fast-forward procedure versus main PR requirement before delivery.
 
 ## Outcome
 
@@ -39,7 +39,7 @@ Workbench Template, while preserving the existing portfolio layout and claims.
 - [x] Both Workbench entries identify and link to KaydenClark/Workbench_Template.
 - [x] The two entries contain no LLM_Workbench destination or private-producer open-source claim.
 - [x] Static site checks, doctor, diff review and focused page QA pass.
-- [ ] Independent Task and Spec review and pre-PR QA pass for the candidate.
+- [x] Independent Task and Spec review and pre-PR QA pass for the candidate.
 
 ## Verification Procedure
 
@@ -57,9 +57,12 @@ live verification remain separate from local acceptance.
 
 | 2026-10-17 | TK-001 | Local candidate reviewed; delivery conflict corrected | dc92726 Task PASS and local pre-PR QA PASS; assembled reviewer required correcting the release-workflow statement; current Runbook and ruleset evidence establish the conflict | Corrected only the workflow statement; HTML unchanged | Final assembled delta review; parent delivery-route resolution; deployed verification |
 
+| 2026-10-17 | spec | Corrected candidate independently reviewed | 45149f3 Task PASS, assembled candidate PASS and local pre-PR QA PASS; 1440px and 390px screenshots, exact-link click checks, no overflow or console errors | Acceptance reflects local preparation only; delivery is not complete | Parent resolution of documented direct-FF procedure versus main PR rule; then authorized delivery and live verification |
+
 ## Completion Result
 
 Both Workbench entries are implemented locally and pass the configured checks
-and focused desktop/mobile QA. Independent Task review and local pre-PR QA
-passed for dc92726. Final assembled review of this corrected work record is
-pending. No PR, push, main promotion or deployment has occurred.
+and focused desktop/mobile QA. Independent Task, assembled candidate and local
+pre-PR QA review passed at 45149f3. This bookkeeping update records those
+verdicts; the reviewed HTML is unchanged. No PR, push, main promotion or
+deployment has occurred. Delivery and live verification remain open.
